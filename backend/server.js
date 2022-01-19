@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 // Seed the database
 const Food = mongoose.model('Food', {
-  food: String,
+  food: String, // 100g serving
   vitamin_c: Number, // in milligrams
   iron: Number // in milligrams
 });
@@ -57,10 +57,23 @@ app.get('/foods/', async (req, res) => {
     response: foodData,
     success: true
   });
+  /* let foods = await Food.find(req.query);
+  if (foods) {
+    if (req.query.vitamin_c) {
+      const foodsByVitaminC = await Food.find().gt(
+        'vitamin_c',
+        req.query.vitamin_c
+      );
+      foods = foodsByVitaminC;
+    }
+    res.json(foods);
+  } else {
+    res.status(404).json({ error: 'Foods not found' });
+  } */
 });
 
 // Get all foods with > 2 mg iron
-app.get('/foods/iron/', async (req, res) => {
+/* app.get('/foods/iron/', async (req, res) => {
   let foods = await Food.find(req.query);
   Food.find({ iron: { $gte: 40 } }, (error, foods) => {
     if (error) {
@@ -69,10 +82,10 @@ app.get('/foods/iron/', async (req, res) => {
       res.send(foods);
     }
   });
-});
+}); */
 
 // Get all foods with > 40 mg vitamin C
-app.get('/foods/vitamin_c/', async (req, res) => {
+/* app.get('/foods/vitamin_c/', async (req, res) => {
   let foods = await Food.find(req.query);
   Food.find({ vitamin_c: { $gte: 40 } }, (error, foods) => {
     if (error) {
@@ -81,7 +94,7 @@ app.get('/foods/vitamin_c/', async (req, res) => {
       res.send(foods);
     }
   });
-});
+}); */
 
 // Start the server
 app.listen(port, () => {

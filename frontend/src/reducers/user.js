@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* import { createSlice } from '@reduxjs/toolkit';
 
 const user = createSlice({
 	name: 'user',
@@ -25,3 +25,4 @@ const user = createSlice({
 });
 
 export default user;
+ */

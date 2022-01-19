@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* import { createSlice } from '@reduxjs/toolkit';
 
 const thoughts = createSlice({
 	name: 'thoughts',
@@ -17,3 +17,4 @@ const thoughts = createSlice({
 });
 
 export default thoughts;
+ */
