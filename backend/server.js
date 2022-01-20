@@ -3,7 +3,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import foodData from './data/foodData.json';
 
-const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/ironTracker';
+const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/iron-tracker';
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 // Default route
 app.get('/', (req, res) => {
   res.send(
-    'This is the backend of the Iron Tracker web app by Isabel González. Please visit <a href="">frontend</a> for the main page!'
+    'This is the backend of the Iron Tracker web app by Isabel González. Start by adding /foods to the URL above.'
   );
 });
 
@@ -57,7 +57,9 @@ app.get('/foods/', async (req, res) => {
     response: foodData,
     success: true
   });
-  /* let foods = await Food.find(req.query);
+
+  let foods = await Food.find(req.query);
+
   if (foods) {
     if (req.query.vitamin_c) {
       const foodsByVitaminC = await Food.find().gt(
@@ -69,13 +71,13 @@ app.get('/foods/', async (req, res) => {
     res.json(foods);
   } else {
     res.status(404).json({ error: 'Foods not found' });
-  } */
+  }
 });
 
-// Get all foods with > 2 mg iron
-/* app.get('/foods/iron/', async (req, res) => {
+// Get all foods with > 40 mg vitamin C
+/* app.get('/foods/vitamin_c/', async (req, res) => {
   let foods = await Food.find(req.query);
-  Food.find({ iron: { $gte: 40 } }, (error, foods) => {
+  Food.find({ vitamin_c: { $gte: 40 } }, (error, foods) => {
     if (error) {
       res.status(404).json({ error: 'Foods not found' });
     } else {
@@ -84,10 +86,10 @@ app.get('/foods/', async (req, res) => {
   });
 }); */
 
-// Get all foods with > 40 mg vitamin C
-/* app.get('/foods/vitamin_c/', async (req, res) => {
+// Get all foods with > 2 mg iron
+/* app.get('/foods/iron/', async (req, res) => {
   let foods = await Food.find(req.query);
-  Food.find({ vitamin_c: { $gte: 40 } }, (error, foods) => {
+  Food.find({ iron: { $gte: 40 } }, (error, foods) => {
     if (error) {
       res.status(404).json({ error: 'Foods not found' });
     } else {
