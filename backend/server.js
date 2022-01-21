@@ -61,6 +61,7 @@ app.get('/foods/', async (req, res) => {
   let foods = await Food.find(req.query);
 
   if (foods) {
+    console.log('data!');
     if (req.query.vitamin_c) {
       const foodsByVitaminC = await Food.find().gt(
         'vitamin_c',
@@ -74,22 +75,20 @@ app.get('/foods/', async (req, res) => {
   }
 });
 
-// Get all foods with > 40 mg vitamin C
+// Tom's suggestion (throws an empty array)
+/* app.get('/food', async (req, res) => {
+  try {
+    let foods = await Food.find(req.query);
+    res.json(foods);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}); */
+
+// I tried a path fetch as well, to get all foods with > 40 mg vitamin C. It currently throws an empty array.
 /* app.get('/foods/vitamin_c/', async (req, res) => {
   let foods = await Food.find(req.query);
   Food.find({ vitamin_c: { $gte: 40 } }, (error, foods) => {
-    if (error) {
-      res.status(404).json({ error: 'Foods not found' });
-    } else {
-      res.send(foods);
-    }
-  });
-}); */
-
-// Get all foods with > 2 mg iron
-/* app.get('/foods/iron/', async (req, res) => {
-  let foods = await Food.find(req.query);
-  Food.find({ iron: { $gte: 40 } }, (error, foods) => {
     if (error) {
       res.status(404).json({ error: 'Foods not found' });
     } else {
