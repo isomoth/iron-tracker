@@ -39,63 +39,30 @@ const Food = mongoose.model('Food', {
 });
 
 // Avoid duplicates upon restarting
-if (process.env.RESET_DB) {
-  const seedDatabase = async () => {
-    await Food.deleteMany({});
+// if (process.env.RESET_DB) {
+const seedDatabase = async () => {
+  await Food.deleteMany({});
 
-    foodData.forEach((item) => {
-      const newFood = new Food(item);
-      newFood.save();
-    });
-  };
-  seedDatabase();
-}
-
-// Get all foods
-app.get('/foods/', async (req, res) => {
-  res.json({
-    response: foodData,
-    success: true
+  foodData.forEach((item) => {
+    const newFood = new Food(item);
+    newFood.save();
   });
+};
+seedDatabase();
+// }
 
-  let foods = await Food.find(req.query);
-
-  if (foods) {
-    console.log('data!');
-    if (req.query.vitamin_c) {
-      const foodsByVitaminC = await Food.find().gt(
-        'vitamin_c',
-        req.query.vitamin_c
-      );
-      foods = foodsByVitaminC;
-    }
-    res.json(foods);
-  } else {
-    res.status(404).json({ error: 'Foods not found' });
+app.get('/foods', async (req, res) => {
+  const { vitamin_c, iron } = req.query;
+  let foods = await Food.find();
+  if (vitamin_c) {
+    const foodsByVitaminC = await Food.find({ vitamin_c: { $gt: vitamin_c } });
+    foods = foodsByVitaminC;
+  } else if (iron) {
+    const foodsByIron = await Food.find({ iron: { $gt: iron } });
+    foods = foodsByIron;
   }
+  res.json(foods);
 });
-
-// Tom's suggestion (throws an empty array)
-/* app.get('/food', async (req, res) => {
-  try {
-    let foods = await Food.find(req.query);
-    res.json(foods);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-}); */
-
-// I tried a path fetch as well, to get all foods with > 40 mg vitamin C. It currently throws an empty array.
-/* app.get('/foods/vitamin_c/', async (req, res) => {
-  let foods = await Food.find(req.query);
-  Food.find({ vitamin_c: { $gte: 40 } }, (error, foods) => {
-    if (error) {
-      res.status(404).json({ error: 'Foods not found' });
-    } else {
-      res.send(foods);
-    }
-  });
-}); */
 
 // Start the server
 app.listen(port, () => {
