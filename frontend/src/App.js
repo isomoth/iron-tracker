@@ -1,33 +1,18 @@
-/* import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
-
-import Main from './components/Main';
-import Login from './components/Login';
-import NotFound from './components/NotFound';
-
-import user from './reducers/user';
-import thoughts from './reducers/thoughts';
-
-const reducer = combineReducers({
-	user: user.reducer,
-	thoughts: thoughts.reducer,
-});
-
-const store = configureStore({ reducer });
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import FoodList from './components/FoodList';
+import { Home } from 'components/Home';
 
 export const App = () => {
-	return (
-		<Provider store={store}>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/" element={<Main />} />
-					<Route path="/login" element={<Login />} />
-					<Route path="*" element={<NotFound />} />
-				</Routes>
-			</BrowserRouter>
-		</Provider>
-	);
+  return (
+    <div>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<Home />}></Route>
+          <Route path='/foods' element={<FoodList />}></Route>
+          {/* <Route path='/foods' render={() => <FoodList />}></Route> */}
+        </Routes>
+      </Router>
+    </div>
+  );
 };
- */

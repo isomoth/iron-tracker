@@ -51,6 +51,8 @@ const seedDatabase = async () => {
 seedDatabase();
 // }
 
+// Filter foods by a certain nutrition value (lower limit).
+// Example: Foods with >20mg iron: /foods?iron=20
 app.get('/foods', async (req, res) => {
   const { vitamin_c, iron } = req.query;
   let foods = await Food.find();
@@ -62,6 +64,20 @@ app.get('/foods', async (req, res) => {
     foods = foodsByIron;
   }
   res.json(foods);
+});
+
+// Get food by id
+app.get('/foods/id/:_id', async (req, res) => {
+  try {
+    const foodById = await Food.findById(req.params._id);
+    if (foodById) {
+      res.json(foodById);
+    } else {
+      res.status(404).json({ error: 'No food by that id' });
+    }
+  } catch (err) {
+    res.status(400).json({ error: 'Invalid id' });
+  }
 });
 
 // Start the server
