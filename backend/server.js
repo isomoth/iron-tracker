@@ -4,7 +4,10 @@ import mongoose from 'mongoose';
 import foodData from './data/foodData.json';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/iron-tracker';
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 mongoose.Promise = Promise;
 
 // Define the port the app will run on
