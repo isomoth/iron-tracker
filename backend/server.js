@@ -83,6 +83,9 @@ app.get('/foods/id/:_id', async (req, res) => {
   }
 });
 
+// Dictionary fetch
+// app.get();
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

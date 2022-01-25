@@ -19,7 +19,7 @@ export const App = () => {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}></Route>
-          <Route path='/foods' element={<FoodList />}></Route>
+          <Route path='/food_list' element={<FoodList />}></Route>
           <Route path='/tracker' element={<FoodTracker />}></Route>
         </Routes>
       </Router>
