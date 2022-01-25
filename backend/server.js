@@ -54,7 +54,7 @@ const seedDatabase = async () => {
 seedDatabase();
 // }
 
-// Filter foods by a certain nutrition value (lower limit).
+// Filter foods by a certain nutrition value given by the user (lower limit).
 // Example: Foods with >20mg iron: /foods?iron=20
 app.get('/foods', async (req, res) => {
   const { vitamin_c, iron } = req.query;
@@ -67,6 +67,17 @@ app.get('/foods', async (req, res) => {
     foods = foodsByIron;
   }
   res.json(foods);
+});
+
+// Get foods richest in iron
+app.get('/foods/iron', (req, res) => {
+  Food.find({ iron: { $gte: 60 } }, (error, foods) => {
+    if (error) {
+      res.status(404).json({ error: 'Foods not found' });
+    } else {
+      res.send(foods);
+    }
+  });
 });
 
 // Get food by id
