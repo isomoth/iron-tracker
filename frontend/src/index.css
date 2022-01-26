@@ -1,13 +1,75 @@
-/* body {
-	margin: 20px;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-		sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+body {
+  background-color: #1b1035;
+  color: #46d5da;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
-} */
+/* ----------------------------------------------- */
+/*                   COLOR PALETTE  	           */
+/* ----------------------------------------------- */
+/* 
+#1b1035 Dark Violet
+#6b40ad Violet
+#1ba2f6 Light Blue
+#b44051 Red
+#317abb Blue
+#e73cb8 Pink
+#2e7a5d Dark Green
+#3be280 Light Green
+#755024 Brown
+#fcc115 Yellow
+ */
+
+/* ----------------------------------------------- */
+/*                   LOADING OVERLAY	           */
+/* ----------------------------------------------- */
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #dcdcdc;
+  border-left: 5px solid var(--base);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  animation: spinner infinite 0.5s;
+  -webkit-animation: spinner infinite 0.5s;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+  }
+}

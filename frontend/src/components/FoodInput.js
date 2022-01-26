@@ -3,21 +3,32 @@ import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
 
 // Styles
+
+export const Header = styled.h1`
+  color: #e73cb8;
+  text-shadow: 0 0 1px rgba(50, 251, 226, 0.6), 0 0 3px rgba(50, 251, 226, 0.5),
+    0 0 0.5rem rgba(50, 251, 226, 0.3), 0 0 2rem rgba(50, 251, 226, 0.2);
+`;
+
 export const SuggestionContainer = styled.div`
   cursor: pointer;
   border: 1px solid #000;
+  color: #fff;
   width: 50%;
   &:hover {
-    background: gray;
+    background: #1ba2f6;
   }
 `;
 
 export const InputField = styled.input`
   width: 50%;
+  background: #30115e;
+  border: 0 solid #ced4da;
+  color: #fff;
 `;
 
-// Functionality
-export const FoodTracker = () => {
+// Tracker Functionality
+export const FoodInput = () => {
   const [foods, setFoods] = useState([]);
   const [text, setText] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -33,11 +44,12 @@ export const FoodTracker = () => {
     setSuggestions([]);
   };
 
+  // Display suggestions when the user starts writing in the input field
   const onUserInput = (text) => {
     let matches = [];
     if (text.length > 0) {
       matches = foods.filter((food) => {
-        const regex = new RegExp(`${text}`, 'gi');
+        const regex = new RegExp(`${text}`, 'gi'); // Case insensitive
         return food.food.match(regex);
       });
     }
@@ -47,7 +59,7 @@ export const FoodTracker = () => {
 
   return (
     <>
-      <h1>TODAY'S IRON INTAKE</h1>
+      <Header>TODAY'S IRON INTAKE</Header>
       <div>
         <InputField
           type='text'
@@ -74,55 +86,3 @@ export const FoodTracker = () => {
     </>
   );
 };
-// import { useSelector, useDispatch } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { foods } from 'reducers/foods';
-
-// export const FoodTracker = ({ foods }) => {
-//   const foodItems = useSelector((store) => store.foods.foodItems);
-//   const dispatch = useDispatch();
-
-//   const onToggleFood = (_id) => {
-//     dispatch(foods.actions.toggleFood(_id));
-//   };
-
-//   const onDeleteFood = (_id) => {
-//     dispatch(foods.actions.deleteFood(_id));
-//   };
-
-//   /* Empty list state */
-//   if (foodItems.length === 0) {
-//     return (
-//       <section>
-//         <p>Add a food item...</p>
-//       </section>
-//     );
-//   } else {
-//     return (
-//       <section>
-//         <h1>Today's foods</h1>
-//         {foods.map((food) => (
-//           <div className='food-container' key={food._id}>
-//             <p>
-//               <input
-//                 className='checkbox'
-//                 type='checkbox'
-//                 checked={food.isComplete}
-//                 onChange={() => onToggleFood(food._id)}
-//               />
-//             </p>
-//             {/* Display the user's input as a food item on the list */}
-//             <p>{food.text}</p>
-
-//             <button
-//               className='delete-button'
-//               onClick={() => onDeleteFood(food._id)}
-//             >
-//               x
-//             </button>
-//           </div>
-//         ))}
-//       </section>
-//     );
-//   }
-// };
