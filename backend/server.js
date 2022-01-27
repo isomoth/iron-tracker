@@ -94,6 +94,53 @@ app.get('/foods/id/:_id', async (req, res) => {
   }
 });
 
+// Add food to the database
+app.post('/foods', async (req, res) => {
+  const { food, vitamin_c, iron } = req.body;
+
+  try {
+    const newFood = await new Food({
+      food: food,
+      vitamin_c: vitamin_c,
+      iron: iron
+    }).save();
+    res.status(201).json({ newFood, success: true });
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+// Delete foods
+app.delete('/foods/id/:_id', async (req, res) => {
+  const { _id } = req.params;
+  try {
+    const deletedFood = await Food.findOneAndDelete({ _id: _id });
+    if (deletedFood) {
+      res.status(200).json({ response: deletedFood, success: true });
+    } else {
+      res.status(404).json({ response: error, success: false });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
+// Edit foods
+app.patch('/foods/id/:_id', async (req, res) => {
+  const { _id } = req.params;
+
+  try {
+    const updatedFood = await Food.findOneAndUpdate({ _id: _id }, req.body);
+    if (updatedFood) {
+      res.status(200).json({ response: updatedFood, success: true });
+    } else {
+      res.status(404).json({ response: 'Food not found', success: false });
+    }
+  } catch (error) {
+    res.status(400).json({ response: error, success: false });
+  }
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

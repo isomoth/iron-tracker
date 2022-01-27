@@ -7,29 +7,18 @@ export const Image = styled.img`
   border-radius: 30%;
 `;
 
-export const Header = styled.h1`
-  color: #e73cb8;
-  text-shadow: 0 0 1px rgba(50, 251, 226, 0.6), 0 0 3px rgba(50, 251, 226, 0.5),
-    0 0 0.5rem rgba(50, 251, 226, 0.3), 0 0 2rem rgba(50, 251, 226, 0.2);
-`;
-
-export const Subheader = styled.h2`
-  text-shadow: 0 0 1px rgba(50, 251, 226, 0.6), 0 0 3px rgba(50, 251, 226, 0.5),
-    0 0 0.5rem rgba(50, 251, 226, 0.3), 0 0 2rem rgba(50, 251, 226, 0.2);
-`;
-
 export const Home = () => {
   return (
-    <div>
+    <section className='main-container'>
       <Image src={require('../assets/chemistry.gif')} />
-      <Header>IRON TRACKER</Header>
-      <Subheader>Keeping your iron nutrition on track</Subheader>
+      <h1>IRON TRACKER</h1>
+      <h2>Keeping your iron nutrition on track</h2>
       <p>1.62 billion people suffer from anemia (iron deficiency).</p>
       <p>Nutrition is a decisive factor in many cases.</p>
       <p>
-        Track your daily iron intake with the help of a food list of over 8000
-        common foods.
+        Track your daily iron intake with the help of a list of over 8000 common
+        foods.
       </p>
-    </div>
+    </section>
   );
 };

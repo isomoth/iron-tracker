@@ -1,21 +1,32 @@
 import React from 'react';
+import styled from 'styled-components';
+
+export const FooterContainer = styled.footer`
+  font-size: small;
+  padding: 1em;
+  text-align: center;
+`;
+
+export const FooterLink = styled.a`
+  color: #e73cb8;
+`;
 
 const date = new Date();
 const currentYear = date.getFullYear();
 
 export const Footer = () => {
   return (
-    <div>
+    <FooterContainer>
       <p>
         Made by{' '}
-        <a
+        <FooterLink
           className='footer-link'
           target='_blank'
           rel='noopener noreferrer'
           href='https://github.com/isomoth'
         >
           Isabel González
-        </a>{' '}
+        </FooterLink>{' '}
         @ Technigo
       </p>
       <p>Copyright {currentYear}</p>
@@ -24,6 +35,6 @@ export const Footer = () => {
         treatment.
       </p>
       <p>See additional information.</p>
-    </div>
+    </FooterContainer>
   );
 };

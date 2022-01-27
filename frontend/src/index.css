@@ -21,6 +21,67 @@ body {
  */
 
 /* ----------------------------------------------- */
+/*                   GLOBAL ELEMENTS  	           */
+/* ----------------------------------------------- */
+
+h1 {
+  color: #e73cb8;
+  font-size: 2.5rem;
+  text-shadow: 0 0 1px rgba(50, 251, 226, 0.6), 0 0 3px rgba(50, 251, 226, 0.5),
+    0 0 0.5rem rgba(50, 251, 226, 0.3), 0 0 2rem rgba(50, 251, 226, 0.2);
+}
+
+h2 {
+  text-shadow: 0 0 1px rgba(50, 251, 226, 0.6), 0 0 3px rgba(50, 251, 226, 0.5),
+    0 0 0.5rem rgba(50, 251, 226, 0.3), 0 0 2rem rgba(50, 251, 226, 0.2);
+}
+
+.main-container {
+  display: block;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 20%;
+}
+
+button {
+  background: #3cf281;
+  border: 0 solid transparent;
+  border-color: #3cf281;
+  box-shadow: 0 0 2px rgba(60, 242, 129, 0.9), 0 0 4px rgba(60, 242, 129, 0.4),
+    0 0 1rem rgba(60, 242, 129, 0.3), 0 0 4rem rgba(60, 242, 129, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 0.15rem;
+  margin-left: 1%;
+  padding: 0.75rem 0.75rem;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3),
+    0 0 2px rgba(255, 255, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.2);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+button:hover {
+  background: #2e7a5d;
+  cursor: pointer;
+}
+
+input {
+  width: 50%;
+  background: #30115e;
+  border: 0 solid #ced4da;
+  border-radius: 0.15rem;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.8rem 0.75rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  outline: none;
+}
+
+input:focus {
+  border: 2px solid #6b40ad;
+}
+
+/* ----------------------------------------------- */
 /*                   LOADING OVERLAY	           */
 /* ----------------------------------------------- */
 
