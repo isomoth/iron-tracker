@@ -2,6 +2,8 @@ body {
   background-color: #1b1035;
   color: #46d5da;
   font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /* ----------------------------------------------- */
@@ -39,7 +41,7 @@ h2 {
 .main-container {
   display: block;
   text-align: center;
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 20%;
 }
 
@@ -79,6 +81,15 @@ input {
 
 input:focus {
   border: 2px solid #6b40ad;
+}
+
+a {
+  text-decoration: none;
+  color: #ced4da;
+}
+
+a:hover {
+  color: #fff;
 }
 
 /* ----------------------------------------------- */

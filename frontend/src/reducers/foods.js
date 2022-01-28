@@ -62,6 +62,7 @@ export const onAddFood = (input, setInput) => {
           }
         });
     }
+    setInput('');
   };
 };
 

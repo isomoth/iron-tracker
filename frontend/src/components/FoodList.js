@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { displayFoods, onDeleteFood } from '../reducers/foods';
+import { onDeleteFood } from '../reducers/foods';
 
 //Styles
 export const EmptyStateContainer = styled.section`
@@ -19,39 +19,21 @@ export const EmptyStateText = styled.p`
 // Food List Functionality
 export const FoodList = () => {
   const foods = useSelector((store) => store.foods.foods);
-  const loading = useSelector((store) => store.foods.loading);
 
   const dispatch = useDispatch();
 
   console.log('HERE IS MY DATA', foods);
+  console.log('TYPE OF DATA: ', typeof foods); // This returns an object, but should return an array
 
-  useEffect(() => {
-    dispatch(displayFoods());
-  }, [dispatch]);
-
-  // Empty list state
-  if (foods.length === 0) {
-    return (
-      <EmptyStateContainer>
-        <EmptyStateText>No tracked foods for now...</EmptyStateText>
-      </EmptyStateContainer>
-    );
-  } else {
-    return (
-      <>
-        {!loading && (
-          <section>
-            {foods.map((food) => (
-              <div key={food._id}>
-                <p>{food.input}</p>
-                <button onClick={() => dispatch(onDeleteFood(food._id))}>
-                  x
-                </button>
-              </div>
-            ))}
-          </section>
-        )}
-      </>
-    );
-  }
+  return (
+    <section>
+      {foods.map((food) => (
+        <div key={food._id}>
+          <p>{food.input}</p>
+          <button onClick={() => dispatch(onDeleteFood(food._id))}>x</button>
+        </div>
+      ))}
+    </section>
+  );
 };
+// };

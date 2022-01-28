@@ -49,6 +49,11 @@ export const AddFood = () => {
       .then((data) => setFoods(data));
   }, []);
 
+  // This should replace the useEffect above by using an action from the reducer instead. But it doesn't work (it doesn't display the food suggestions)
+  //  useEffect(() => {
+  //     dispatch(displayFoods());
+  //   }, [dispatch]);
+
   const onSuggestionHandler = (input) => {
     setInput(input);
     setSuggestions([]);
@@ -83,7 +88,7 @@ export const AddFood = () => {
             setTimeout(() => {
               setSuggestions([]);
             }, 100);
-          }} */ // List of suggestions disappears when clicking outside of it
+          }} */ // Make the list of suggestions disappear when clicking outside of it
           />
           {suggestions &&
             suggestions.map((suggestion, i) => (
@@ -94,6 +99,16 @@ export const AddFood = () => {
                 {suggestion.food}
               </SuggestionContainer>
             ))}
+
+          {/* Display a <p> containing the selected food  */}
+          {/* <section>
+            {foods.map((food) => (
+              <div key={food._id}>
+                <p>{food.input}</p>
+              </div>
+            ))}
+          </section> */}
+
           <button
             onClick={(e) => {
               onAddFood(e);

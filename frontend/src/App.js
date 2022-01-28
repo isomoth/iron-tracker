@@ -9,6 +9,8 @@ import { AddFood } from './components/AddFood';
 import { Home } from './components/Home';
 import { Footer } from './components/Footer';
 import { FoodList } from 'components/FoodList';
+import { Disclaimer } from 'components/Disclaimer';
+import { Navbar } from 'components/Navbar';
 
 const reducer = combineReducers({
   foods: foods.reducer
@@ -20,6 +22,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <Navbar />
         <Routes>
           <Route path='/' element={<Home />}></Route>
           <Route path='/foods' element={<TopFoods />}></Route>
@@ -33,6 +36,7 @@ export const App = () => {
               </>
             }
           ></Route>
+          <Route path='/disclaimer' element={<Disclaimer />}></Route>
         </Routes>
       </Router>
       <Footer />
