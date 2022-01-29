@@ -4,6 +4,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
 import { foods } from './reducers/foods';
+// import { ui } from './reducers/ui';
+// import { user } from './reducers/user';
 import { TopFoods } from './components/TopFoods';
 import { AddFood } from './components/AddFood';
 import { Home } from './components/Home';
@@ -14,6 +16,8 @@ import { Navbar } from 'components/Navbar';
 
 const reducer = combineReducers({
   foods: foods.reducer
+  //   ui: ui.reducer,
+  //   user: user.reducer
 });
 
 const store = configureStore({ reducer });
