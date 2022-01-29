@@ -68,13 +68,13 @@ button:hover {
 }
 
 input {
-  width: 50%;
+  width: 80%;
   background: #30115e;
   border: 0 solid #ced4da;
   border-radius: 0.15rem;
   color: #fff;
   font-size: 1rem;
-  padding: 0.8rem 0.75rem;
+  padding: 1rem 0.75rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   outline: none;
 }
@@ -143,5 +143,15 @@ a:hover {
     -moz-transform: rotate(360deg);
     -ms-transform: rotate(360deg);
     -o-transform: rotate(360deg);
+  }
+}
+
+/* ----------------------------------------------- */
+/*                MEDIA QUERIES                    */
+/* ----------------------------------------------- */
+
+@media only screen and (min-width: 768px) {
+  input {
+    width: 50%;
   }
 }

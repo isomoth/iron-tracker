@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
-import { useDispatch } from 'react-redux';
-import { onAddFood } from '../reducers/foods';
 
 // Styles
 export const SuggestionContainer = styled.div`
@@ -21,8 +19,24 @@ export const SuggestionContainer = styled.div`
 export const TrackerContainer = styled.section`
   display: block;
   text-align: center;
-  margin-top: 15%;
-  margin-bottom: 10%;
+  margin-top: 5%;
+  margin-bottom: 20%;
+`;
+
+export const DisplayedFood = styled.p`
+  width: 80%;
+  background: #6f42c1;
+  border-color: #6f42c1;
+  border-radius: 0.15rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 0.75rem;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 // Tracker Functionality
@@ -30,17 +44,10 @@ export const AddFood = () => {
   const [foods, setFoods] = useState([]);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const dispatch = useDispatch();
+  const [selectedFoods, setSelectedFoods] = useState([]);
 
   const cleanInput = () => {
     setInput('');
-  };
-
-  const onEnter = (event) => {
-    if (event.key === 'Enter') {
-      dispatch(onAddFood(input));
-      setInput('');
-    }
   };
 
   useEffect(() => {
@@ -48,11 +55,6 @@ export const AddFood = () => {
       .then((res) => res.json())
       .then((data) => setFoods(data));
   }, []);
-
-  // This should replace the useEffect above by using an action from the reducer instead. But it doesn't work (it doesn't display the food suggestions)
-  //  useEffect(() => {
-  //     dispatch(displayFoods());
-  //   }, [dispatch]);
 
   const onSuggestionHandler = (input) => {
     setInput(input);
@@ -76,12 +78,17 @@ export const AddFood = () => {
     <>
       <TrackerContainer>
         <h1>TODAY'S IRON INTAKE</h1>
-        <form onSubmit={onAddFood}>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            setSelectedFoods([...selectedFoods, input]);
+            cleanInput();
+          }}
+        >
           <input
             type='text'
             id='search'
             placeholder='What did you eat today?'
-            onKeyDown={onEnter}
             onChange={(e) => onUserInput(e.target.value)}
             value={input}
             /* onBlur={() => {
@@ -99,25 +106,22 @@ export const AddFood = () => {
                 {suggestion.food}
               </SuggestionContainer>
             ))}
-
-          {/* Display a <p> containing the selected food  */}
-          {/* <section>
-            {foods.map((food) => (
-              <div key={food._id}>
-                <p>{food.input}</p>
-              </div>
-            ))}
-          </section> */}
-
-          <button
-            onClick={(e) => {
-              onAddFood(e);
-              cleanInput();
-            }}
-          >
-            Track
-          </button>
         </form>
+        {/* Display a <p> containing the selected food  */}
+        <div>
+          {selectedFoods.map((selectedFood) => (
+            <DisplayedFood>{selectedFood}</DisplayedFood>
+          ))}
+        </div>
+        <button
+          onClick={(event) => {
+            event.preventDefault();
+            setSelectedFoods([...selectedFoods, input]);
+            cleanInput();
+          }}
+        >
+          Track
+        </button>
       </TrackerContainer>
     </>
   );

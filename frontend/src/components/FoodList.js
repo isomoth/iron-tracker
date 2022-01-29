@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { onDeleteFood } from '../reducers/foods';
+import { useSafeDispatch } from 'hooks/useSafeDispatch';
 
 //Styles
 export const EmptyStateContainer = styled.section`
@@ -20,7 +21,9 @@ export const EmptyStateText = styled.p`
 export const FoodList = () => {
   const foods = useSelector((store) => store.foods.foods);
 
-  const dispatch = useDispatch();
+  //   const dispatch = useDispatch();
+  const unsafeDispatch = useDispatch();
+  const dispatch = useSafeDispatch(unsafeDispatch);
 
   console.log('HERE IS MY DATA', foods);
   console.log('TYPE OF DATA: ', typeof foods); // This returns an object, but should return an array
