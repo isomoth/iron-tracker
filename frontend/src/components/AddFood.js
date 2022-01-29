@@ -39,12 +39,20 @@ export const DisplayedFood = styled.p`
   }
 `;
 
+// The idea is to use this object as the initial state of selectedFoods:
+/* const initialState = {
+  food: '',
+  vitamin_c: 0,
+  iron: 0
+};
+ */
+
 // Tracker Functionality
 export const AddFood = () => {
   const [foods, setFoods] = useState([]);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedFoods, setSelectedFoods] = useState([]); // initialState should go in here
 
   const cleanInput = () => {
     setInput('');
@@ -55,6 +63,8 @@ export const AddFood = () => {
       .then((res) => res.json())
       .then((data) => setFoods(data));
   }, []);
+
+  console.log('DATA: ', selectedFoods);
 
   const onSuggestionHandler = (input) => {
     setInput(input);
@@ -91,11 +101,6 @@ export const AddFood = () => {
             placeholder='What did you eat today?'
             onChange={(e) => onUserInput(e.target.value)}
             value={input}
-            /* onBlur={() => {
-            setTimeout(() => {
-              setSuggestions([]);
-            }, 100);
-          }} */ // Make the list of suggestions disappear when clicking outside of it
           />
           {suggestions &&
             suggestions.map((suggestion, i) => (
@@ -107,12 +112,14 @@ export const AddFood = () => {
               </SuggestionContainer>
             ))}
         </form>
-        {/* Display a <p> containing the selected food  */}
-        <div>
-          {selectedFoods.map((selectedFood) => (
+        {/* Display the selected food with its nutritional values */}
+        {selectedFoods.map((selectedFood, i) => (
+          <div key={i}>
             <DisplayedFood>{selectedFood}</DisplayedFood>
-          ))}
-        </div>
+            {/* The idea is to render selectedFood.iron and
+			selectedFood.vitamin_c in here, something like: <DisplayedFood>{selectedFood.iron}</DisplayedFood> */}
+          </div>
+        ))}
         <button
           onClick={(event) => {
             event.preventDefault();

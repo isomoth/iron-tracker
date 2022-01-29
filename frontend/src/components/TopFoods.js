@@ -22,13 +22,6 @@ export const TopFoods = () => {
       <h1>IRON-RICH FOODS</h1>
       <h2>HALL OF FAME</h2>
       <h3>(mg per 100g serving)</h3>
-      {/* <button
-        onClick={() => {
-          dispatch(displayFoods());
-        }}
-      >
-        Show me the winners
-      </button> */}
       {foods.map((food) => (
         <div key={food._id}>
           <h4>{food.food}</h4>

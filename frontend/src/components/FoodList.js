@@ -25,9 +25,6 @@ export const FoodList = () => {
   const unsafeDispatch = useDispatch();
   const dispatch = useSafeDispatch(unsafeDispatch);
 
-  console.log('HERE IS MY DATA', foods);
-  console.log('TYPE OF DATA: ', typeof foods); // This returns an object, but should return an array
-
   return (
     <section>
       {foods.map((food) => (
