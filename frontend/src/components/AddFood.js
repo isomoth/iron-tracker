@@ -7,7 +7,7 @@ export const SuggestionContainer = styled.div`
   cursor: pointer;
   border: 2px solid gray;
   color: #fff;
-  width: 50%;
+  width: 80%;
   &:hover {
     background: #1ba2f6;
   }
@@ -23,36 +23,61 @@ export const TrackerContainer = styled.section`
   margin-bottom: 20%;
 `;
 
-export const DisplayedFood = styled.p`
-  width: 80%;
+export const InputContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
+export const TrackButton = styled.button`
+  margin-left: -17%;
+  position: absolute;
+  z-index: 2;
+`;
+
+export const FoodDataContainer = styled.div`
   background: #6f42c1;
-  border-color: #6f42c1;
-  border-radius: 0.15rem;
+  display: inline-flex;
+  gap: 1%;
+  justify-content: space-evenly;
+  width: 80%;
+`;
+
+export const DisplayedFood = styled.p`
+  border-style: solid;
+  border-width: 0;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 1%;
+  justify-content: space-evenly;
+  text-justify: center;
+  border-color: #dee2e6;
   color: #fff;
   font-size: 1rem;
   font-weight: 400;
-  margin-left: auto;
-  margin-right: auto;
   padding: 0.5rem 0.75rem;
-  @media (min-width: 768px) {
-    width: 50%;
-  }
 `;
 
-// The idea is to use this object as the initial state of selectedFoods:
-/* const initialState = {
-  food: '',
-  vitamin_c: 0,
-  iron: 0
-};
- */
+export const DisplayedNutrition = styled.p`
+  border-style: solid;
+  border-width: 0;
+  border-color: #dee2e6;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-justify: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.5rem 0.75rem;
+`;
 
 // Tracker Functionality
 export const AddFood = () => {
   const [foods, setFoods] = useState([]);
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [selectedFoods, setSelectedFoods] = useState([]); // initialState should go in here
+  const [selectedFoods, setSelectedFoods] = useState([]);
+  const [selectedFood, setSelectedFood] = useState([]);
 
   const cleanInput = () => {
     setInput('');
@@ -64,10 +89,9 @@ export const AddFood = () => {
       .then((data) => setFoods(data));
   }, []);
 
-  console.log('DATA: ', selectedFoods);
-
-  const onSuggestionHandler = (input) => {
-    setInput(input);
+  const onSuggestionHandler = (suggestion) => {
+    setInput(suggestion.food);
+    setSelectedFood(suggestion);
     setSuggestions([]);
   };
 
@@ -91,22 +115,25 @@ export const AddFood = () => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            setSelectedFoods([...selectedFoods, input]);
+            setSelectedFoods([...selectedFoods, selectedFood]);
             cleanInput();
           }}
         >
-          <input
-            type='text'
-            id='search'
-            placeholder='What did you eat today?'
-            onChange={(e) => onUserInput(e.target.value)}
-            value={input}
-          />
+          <InputContainer>
+            <input
+              type='text'
+              id='search'
+              placeholder='What did you eat today?'
+              onChange={(e) => onUserInput(e.target.value)}
+              value={input}
+            />
+            <TrackButton>Track</TrackButton>
+          </InputContainer>
           {suggestions &&
             suggestions.map((suggestion, i) => (
               <SuggestionContainer
                 key={i}
-                onClick={() => onSuggestionHandler(suggestion.food)}
+                onClick={() => onSuggestionHandler(suggestion)}
               >
                 {suggestion.food}
               </SuggestionContainer>
@@ -114,22 +141,14 @@ export const AddFood = () => {
         </form>
         {/* Display the selected food with its nutritional values */}
         {selectedFoods.map((selectedFood, i) => (
-          <div key={i}>
+          <FoodDataContainer key={i}>
             <DisplayedFood>{selectedFood.food}</DisplayedFood>
-            <DisplayedFood>{selectedFood.iron}</DisplayedFood>
-            {/* The idea is to render selectedFood.iron and
-			selectedFood.vitamin_c in here, something like: <DisplayedFood>{selectedFood.iron}</DisplayedFood> */}
-          </div>
+            <DisplayedNutrition>Iron: {selectedFood.iron}</DisplayedNutrition>
+            <DisplayedNutrition>
+              Vit. C: {selectedFood.vitamin_c}
+            </DisplayedNutrition>
+          </FoodDataContainer>
         ))}
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            setSelectedFoods([...selectedFoods, input]);
-            cleanInput();
-          }}
-        >
-          Track
-        </button>
       </TrackerContainer>
     </>
   );

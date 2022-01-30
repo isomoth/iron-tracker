@@ -4,6 +4,7 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   margin: 0;
   padding: 0;
+  width: 320px;
 }
 
 /* ----------------------------------------------- */
@@ -41,8 +42,11 @@ h2 {
 .main-container {
   display: block;
   text-align: center;
-  margin-top: 5%;
+  margin-top: 30%;
   margin-bottom: 20%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 button {
@@ -55,7 +59,7 @@ button {
   font-size: 1rem;
   border-radius: 0.15rem;
   margin-left: 1%;
-  padding: 0.75rem 0.75rem;
+  padding: 1rem 0.75rem;
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3),
     0 0 2px rgba(255, 255, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.2);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -80,7 +84,7 @@ input {
 }
 
 input:focus {
-  border: 2px solid #6b40ad;
+  border: 0.5px solid #6b40ad;
 }
 
 a {

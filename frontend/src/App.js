@@ -9,7 +9,7 @@ import { foods } from './reducers/foods';
 import { TopFoods } from './components/TopFoods';
 import { AddFood } from './components/AddFood';
 import { Home } from './components/Home';
-/* import { Footer } from './components/Footer'; */
+// import { Footer } from './components/Footer';
 import { FoodList } from 'components/FoodList';
 import { Disclaimer } from 'components/Disclaimer';
 import { Navbar } from 'components/Navbar';
