@@ -115,7 +115,8 @@ export const AddFood = () => {
         {/* Display the selected food with its nutritional values */}
         {selectedFoods.map((selectedFood, i) => (
           <div key={i}>
-            <DisplayedFood>{selectedFood}</DisplayedFood>
+            <DisplayedFood>{selectedFood.food}</DisplayedFood>
+            <DisplayedFood>{selectedFood.iron}</DisplayedFood>
             {/* The idea is to render selectedFood.iron and
 			selectedFood.vitamin_c in here, something like: <DisplayedFood>{selectedFood.iron}</DisplayedFood> */}
           </div>
