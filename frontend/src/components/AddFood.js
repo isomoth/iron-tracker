@@ -89,7 +89,7 @@ export const AddFood = () => {
       .then((data) => setFoods(data));
   }, []);
 
-  const onSuggestionHandler = (suggestion) => {
+  const suggestionHandler = (suggestion) => {
     setInput(suggestion.food);
     setSelectedFood(suggestion);
     setSuggestions([]);
@@ -108,7 +108,7 @@ export const AddFood = () => {
     setInput(input);
   };
 
-  const onDeleteSelectedFood = (_id) => {
+  const deleteSelectedFoodHandler = (_id) => {
     const removeFood = selectedFoods.filter((selectedFood) => {
       return selectedFood._id !== _id;
     });
@@ -140,7 +140,7 @@ export const AddFood = () => {
             suggestions.map((suggestion, _id) => (
               <SuggestionContainer
                 key={suggestion._id}
-                onClick={() => onSuggestionHandler(suggestion)}
+                onClick={() => suggestionHandler(suggestion)}
               >
                 {suggestion.food}
               </SuggestionContainer>
@@ -155,12 +155,23 @@ export const AddFood = () => {
               Vit. C: {selectedFood.vitamin_c}
             </DisplayedNutrition>
             <DisplayedNutrition>
-              <button onClick={() => onDeleteSelectedFood(selectedFood._id)}>
+              <button
+                onClick={() => deleteSelectedFoodHandler(selectedFood._id)}
+              >
                 x
               </button>
             </DisplayedNutrition>
           </FoodDataContainer>
         ))}
+        <TrackButton
+          onClick={() => {
+            if (selectedFoods.length !== 0) {
+              setSelectedFoods([]);
+            }
+          }}
+        >
+          Reset
+        </TrackButton>
       </TrackerContainer>
     </>
   );
