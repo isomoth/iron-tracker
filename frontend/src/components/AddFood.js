@@ -108,6 +108,13 @@ export const AddFood = () => {
     setInput(input);
   };
 
+  const onDeleteSelectedFood = (_id) => {
+    const removeFood = selectedFoods.filter((selectedFood) => {
+      return selectedFood._id !== _id;
+    });
+    setSelectedFoods(removeFood);
+  };
+
   return (
     <>
       <TrackerContainer>
@@ -130,9 +137,9 @@ export const AddFood = () => {
             <TrackButton>Track</TrackButton>
           </InputContainer>
           {suggestions &&
-            suggestions.map((suggestion, i) => (
+            suggestions.map((suggestion, _id) => (
               <SuggestionContainer
-                key={i}
+                key={suggestion._id}
                 onClick={() => onSuggestionHandler(suggestion)}
               >
                 {suggestion.food}
@@ -140,12 +147,17 @@ export const AddFood = () => {
             ))}
         </form>
         {/* Display the selected food with its nutritional values */}
-        {selectedFoods.map((selectedFood, i) => (
-          <FoodDataContainer key={i}>
+        {selectedFoods.map((selectedFood, _id) => (
+          <FoodDataContainer key={selectedFood._id}>
             <DisplayedFood>{selectedFood.food}</DisplayedFood>
             <DisplayedNutrition>Iron: {selectedFood.iron}</DisplayedNutrition>
             <DisplayedNutrition>
               Vit. C: {selectedFood.vitamin_c}
+            </DisplayedNutrition>
+            <DisplayedNutrition>
+              <button onClick={() => onDeleteSelectedFood(selectedFood._id)}>
+                x
+              </button>
             </DisplayedNutrition>
           </FoodDataContainer>
         ))}

@@ -10,7 +10,7 @@ import { TopFoods } from './components/TopFoods';
 import { AddFood } from './components/AddFood';
 import { Home } from './components/Home';
 // import { Footer } from './components/Footer';
-import { FoodList } from 'components/FoodList';
+// import { FoodList } from 'components/FoodList';
 import { Disclaimer } from 'components/Disclaimer';
 import { Navbar } from 'components/Navbar';
 
@@ -32,13 +32,13 @@ export const App = () => {
           <Route path='/foods' element={<TopFoods />}></Route>
           <Route
             path='/tracker'
-            /* element={<AddFood />} */
-            element={
+            element={<AddFood />}
+            /* element={
               <>
                 <AddFood />
                 <FoodList />
-              </>
-            }
+              </> 
+            } */
           ></Route>
           <Route path='/disclaimer' element={<Disclaimer />}></Route>
         </Routes>

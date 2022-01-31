@@ -78,7 +78,7 @@ export const onDeleteFood = (_id) => {
           dispatch(foods.actions.deleteFood(_id));
           dispatch(foods.actions.setError(null));
         } else {
-          dispatch(foods.actions.setItems([]));
+          dispatch(foods.actions.setFoods([]));
           dispatch(foods.actions.setError(data.response));
         }
       });
