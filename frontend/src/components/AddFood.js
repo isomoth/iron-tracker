@@ -106,7 +106,16 @@ export const AddFood = () => {
     }
     setSuggestions(matches);
     setInput(input);
+    if (matches.length !== 0) {
+      console.log('Add food');
+    }
   };
+
+  /* const addFoodHandler = () => {
+	  // compare user input to items in the database (by mapping?) 
+	  // if the input can't be found in there, display a div with "add food" button
+	  // trigger POST request to add item to the database
+  } */
 
   const deleteSelectedFoodHandler = (_id) => {
     const removeFood = selectedFoods.filter((selectedFood) => {
