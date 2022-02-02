@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
+import { useDispatch } from 'react-redux';
+import { onAddFood } from '../reducers/foods';
 
 // Styles
 export const SuggestionContainer = styled.div`
@@ -32,6 +34,17 @@ export const TrackButton = styled.button`
   margin-left: -17%;
   position: absolute;
   z-index: 2;
+  &:disabled {
+    background: #073322;
+  }
+`;
+
+export const TrackButton2 = styled.button`
+  display: inline-flex;
+  position: relative;
+  &:disabled {
+    background: #073322;
+  }
 `;
 
 export const FoodDataContainer = styled.div`
@@ -79,6 +92,7 @@ export const AddFood = () => {
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
 
+  const dispatch = useDispatch();
   const cleanInput = () => {
     setInput('');
   };
@@ -96,26 +110,29 @@ export const AddFood = () => {
   };
 
   // Display suggestions when the user starts writing in the input field
+
+  let matches = [];
+
   const onUserInput = (input) => {
-    let matches = [];
     if (input.length > 0) {
       matches = foods.filter((food) => {
-        const regex = new RegExp(`${input}`, 'gi'); // Case insensitive
+        const regex = new RegExp(input, 'gi'); // Case insensitive
         return food.food.match(regex);
       });
     }
     setSuggestions(matches);
     setInput(input);
-    if (matches.length !== 0) {
+    if (matches.length === 0) {
       console.log('Add food');
     }
   };
 
-  /* const addFoodHandler = () => {
-	  // compare user input to items in the database (by mapping?) 
-	  // if the input can't be found in there, display a div with "add food" button
-	  // trigger POST request to add item to the database
-  } */
+  const addFood = () => {
+    if (matches.length === 0) {
+      dispatch(onAddFood(input));
+    }
+    setInput('');
+  };
 
   const deleteSelectedFoodHandler = (_id) => {
     const removeFood = selectedFoods.filter((selectedFood) => {
@@ -142,8 +159,9 @@ export const AddFood = () => {
               placeholder='What did you eat today?'
               onChange={(e) => onUserInput(e.target.value)}
               value={input}
+              disabled={foods.length === 0}
             />
-            <TrackButton>Track</TrackButton>
+            <TrackButton disabled={foods.length === 0}>Track</TrackButton>
           </InputContainer>
           {suggestions &&
             suggestions.map((suggestion, _id) => (
@@ -172,15 +190,17 @@ export const AddFood = () => {
             </DisplayedNutrition>
           </FoodDataContainer>
         ))}
-        <TrackButton
+        <TrackButton2
           onClick={() => {
             if (selectedFoods.length !== 0) {
               setSelectedFoods([]);
             }
           }}
+          disabled={selectedFoods.length === 0}
         >
           Reset
-        </TrackButton>
+        </TrackButton2>
+        <TrackButton2 onClick={addFood}>Add new food</TrackButton2>
       </TrackerContainer>
     </>
   );
