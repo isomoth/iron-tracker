@@ -91,10 +91,16 @@ export const AddFood = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   const dispatch = useDispatch();
   const cleanInput = () => {
     setInput('');
+  };
+
+  // Display a form for adding a new food
+  const onShowForm = () => {
+    setShowForm(!showForm);
   };
 
   useEffect(() => {
@@ -200,7 +206,15 @@ export const AddFood = () => {
         >
           Reset
         </TrackButton2>
-        <TrackButton2 onClick={addFood}>Add new food</TrackButton2>
+        <TrackButton2 onClick={onShowForm}>Add new food</TrackButton2>
+        {showForm && (
+          <form onSubmit={addFood}>
+            <input type='text' placeholder='Food name' />
+            <input type='text' placeholder='Iron (mg)' />
+            <input type='text' placeholder='Vitamin C (mg)' />
+            <TrackButton2>Save</TrackButton2>
+          </form>
+        )}
       </TrackerContainer>
     </>
   );
