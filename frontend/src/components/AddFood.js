@@ -139,8 +139,9 @@ export const AddFood = () => {
     }
   };
 
-  const addFood = () => {
+  const addFood = (event) => {
     if (matches.length === 0) {
+      event.preventDefault();
       dispatch(onAddFood(input));
     }
     setInput('');
