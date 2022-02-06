@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
 import { useDispatch } from 'react-redux';
 import { onAddFood } from '../reducers/foods';
-import { current } from '@reduxjs/toolkit';
 
 // Styles
 export const SuggestionContainer = styled.div`
@@ -124,7 +123,7 @@ export const AddFood = () => {
   const onUserInput = (input) => {
     if (input.length > 0) {
       matches = foods.filter((food) => {
-        const regex = new RegExp(input, 'gi'); // Case insensitive
+        // const regex = new RegExp(input, 'gi'); // Case insensitive
         //   console.log(input);
         //   console.log(food.food);
         //   console.log(typeof food.food);
