@@ -8,10 +8,10 @@ import useOnClickOutside from 'hooks/useOnClickOutside';
 
 import { foods } from './reducers/foods';
 import { TopFoods } from './components/TopFoods';
-import { AddFood } from './components/AddFood';
+import { AddFood } from './components/AddFood/AddFood';
 import { Home } from './components/Home';
 import { Disclaimer } from 'components/Disclaimer';
-import Navbar from 'components/Burger/Navbar';
+import Menu from 'components/Burger/Menu';
 import Burger from 'components/Burger/Burger';
 import Theme from 'components/Burger/Theme';
 
@@ -27,11 +27,13 @@ export const App = () => {
   useOnClickOutside(node, () => setOpen(false));
 
   return (
-    <ThemeProvider theme={Theme}>
-      <Provider store={store}>
-        <Router ref={node}>
-          <Burger open={open} setOpen={setOpen} />
-          <Navbar open={open} setOpen={setOpen} />
+    <Provider store={store}>
+      <ThemeProvider theme={Theme}>
+        <Router>
+          <div ref={node}>
+            <Burger open={open} setOpen={setOpen} />
+            <Menu open={open} setOpen={setOpen} />
+          </div>
           <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/foods' element={<TopFoods />}></Route>
@@ -48,8 +50,7 @@ export const App = () => {
             <Route path='/disclaimer' element={<Disclaimer />}></Route>
           </Routes>
         </Router>
-        {/* <Footer /> */}
-      </Provider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Provider>
   );
 };

@@ -1,88 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
 import { useDispatch } from 'react-redux';
-import { onAddFood } from '../reducers/foods';
-
-// Styles
-export const SuggestionContainer = styled.div`
-  cursor: pointer;
-  border: 2px solid gray;
-  color: #fff;
-  width: 80%;
-  &:hover {
-    background: #1ba2f6;
-  }
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0.8rem 0.75rem;
-`;
-
-export const TrackerContainer = styled.section`
-  display: block;
-  text-align: center;
-  margin-top: 5%;
-  margin-bottom: 20%;
-`;
-
-export const InputContainer = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-export const TrackButton = styled.button`
-  margin-left: -17%;
-  position: absolute;
-  z-index: 2;
-  &:disabled {
-    background: #073322;
-  }
-`;
-
-export const TrackButton2 = styled.button`
-  display: inline-flex;
-  position: relative;
-  &:disabled {
-    background: #073322;
-  }
-`;
-
-export const FoodDataContainer = styled.div`
-  background: #6f42c1;
-  display: inline-flex;
-  gap: 1%;
-  justify-content: space-evenly;
-  width: 80%;
-`;
-
-export const DisplayedFood = styled.p`
-  border-style: solid;
-  border-width: 0;
-  display: inline-flex;
-  flex-direction: column;
-  gap: 1%;
-  justify-content: space-evenly;
-  text-justify: center;
-  border-color: #dee2e6;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 0.5rem 0.75rem;
-`;
-
-export const DisplayedNutrition = styled.p`
-  border-style: solid;
-  border-width: 0;
-  border-color: #dee2e6;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  text-justify: center;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 0.5rem 0.75rem;
-`;
+import { onAddFood } from '../../reducers/foods';
+import * as styles from './AddFood.styled';
 
 // Tracker Functionality
 export const AddFood = () => {
@@ -117,7 +37,6 @@ export const AddFood = () => {
   };
 
   // Display suggestions when the user starts writing in the input field
-
   let matches = [];
 
   const onUserInput = (input) => {
@@ -158,14 +77,15 @@ export const AddFood = () => {
     const sumIron = selectedFoods
       .map((item) => item.iron)
       .reduce((prev, curr) => prev + curr, 0);
-    return sumIron;
+    // Round to two decimals
+    return sumIron.toFixed(2);
   };
 
   const totalVitC = () => {
     const sumVitC = selectedFoods
       .map((item) => item.vitamin_c)
       .reduce((prev, curr) => prev + curr, 0);
-    return sumVitC;
+    return sumVitC.toFixed(2);
   };
 
   const onShowTotalValues = () => {
@@ -174,7 +94,7 @@ export const AddFood = () => {
 
   return (
     <>
-      <TrackerContainer>
+      <section className='main-container'>
         <h1>TODAY'S IRON INTAKE</h1>
         <form
           onSubmit={(event) => {
@@ -183,75 +103,87 @@ export const AddFood = () => {
             cleanInput();
           }}
         >
-          <InputContainer>
+          <styles.InputContainer>
             <input
               type='text'
               id='search'
-              placeholder='What did you eat today?'
+              placeholder='Today I ate...'
               onChange={(e) => onUserInput(e.target.value)}
               value={input}
               disabled={foods.length === 0}
             />
-            <TrackButton disabled={foods.length === 0}>Track</TrackButton>
-          </InputContainer>
+            <styles.TrackButton disabled={foods.length === 0}>
+              Track
+            </styles.TrackButton>
+          </styles.InputContainer>
           {suggestions &&
             suggestions.map((suggestion, _id) => (
-              <SuggestionContainer
+              <styles.SuggestionContainer
                 key={suggestion._id}
                 onClick={() => suggestionHandler(suggestion)}
               >
                 {suggestion.food}
-              </SuggestionContainer>
+              </styles.SuggestionContainer>
             ))}
         </form>
         {/* Display the selected food with its nutritional values */}
         {selectedFoods.map((selectedFood, _id) => (
-          <FoodDataContainer key={selectedFood._id}>
-            <DisplayedFood>{selectedFood.food}</DisplayedFood>
-            <DisplayedNutrition>Iron: {selectedFood.iron}</DisplayedNutrition>
-            <DisplayedNutrition>
+          <styles.FoodDataContainer key={selectedFood._id}>
+            <styles.DisplayedFood>{selectedFood.food}</styles.DisplayedFood>
+            <styles.DisplayedNutrition>
+              Iron: {selectedFood.iron}
+            </styles.DisplayedNutrition>
+            <styles.DisplayedNutrition>
               Vit. C: {selectedFood.vitamin_c}
-            </DisplayedNutrition>
-            <DisplayedNutrition>
+            </styles.DisplayedNutrition>
+            <styles.DisplayedNutrition>
               <button
                 onClick={() => deleteSelectedFoodHandler(selectedFood._id)}
               >
                 x
               </button>
-            </DisplayedNutrition>
-          </FoodDataContainer>
+            </styles.DisplayedNutrition>
+          </styles.FoodDataContainer>
         ))}
-        <TrackButton2
-          onClick={() => {
-            if (selectedFoods.length !== 0) {
-              setSelectedFoods([]);
-            }
-          }}
-          disabled={selectedFoods.length === 0}
-        >
-          Reset
-        </TrackButton2>
-        <TrackButton2 onClick={onShowForm}>Add new food</TrackButton2>
+        {selectedFoods.length !== 0 && (
+          <styles.TrackButton2
+            onClick={() => {
+              if (selectedFoods.length !== 0) {
+                setSelectedFoods([]);
+              }
+            }}
+            disabled={selectedFoods.length === 0}
+          >
+            Reset
+          </styles.TrackButton2>
+        )}
+        {matches.length !== 0 && (
+          <styles.TrackButton2 onClick={onShowForm}>
+            Add new food
+          </styles.TrackButton2>
+        )}
         {showForm && (
           <form onSubmit={addFood}>
             <input type='text' placeholder='Food name' />
             <input type='text' placeholder='Iron (mg)' />
             <input type='text' placeholder='Vitamin C (mg)' />
-            <TrackButton2>Save</TrackButton2>
+            <styles.TrackButton2>Save</styles.TrackButton2>
           </form>
         )}
         {/* Calculate total nutrient values */}
-        <TrackButton2 onClick={onShowTotalValues}>
-          Total consumption
-        </TrackButton2>
+        {selectedFoods.length !== 0 && (
+          <styles.TrackButton2 onClick={onShowTotalValues}>
+            Total consumption
+          </styles.TrackButton2>
+        )}
         {showTotalValues && (
           <div>
-            <h3>Your final score: </h3>
+            <h3>My final score: </h3>
             <p>Iron: {totalIron()} mg</p>
             <p>Vit. C: {totalVitC()} mg</p>
           </div>
         )}
-      </TrackerContainer>
+      </section>
     </>
   );
 };

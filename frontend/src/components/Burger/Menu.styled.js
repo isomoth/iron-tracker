@@ -1,7 +1,4 @@
-import React from 'react';
 import styled from 'styled-components';
-import { bool } from 'prop-types';
-import { Link } from 'react-router-dom';
 
 export const StyledMenu = styled.nav`
   display: flex;
@@ -18,12 +15,12 @@ export const StyledMenu = styled.nav`
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 100%;
+    width: 70%;
   }
 
   a {
     font-size: 2rem;
-    padding: 2rem 0;
+    padding: 0;
     font-weight: bold;
     letter-spacing: 0.3rem;
     color: ${({ theme }) => theme.primaryDark};
@@ -43,30 +40,3 @@ export const StyledMenu = styled.nav`
     }
   }
 `;
-
-const Navbar = ({ open }) => {
-  return (
-    <StyledMenu open={open}>
-      <li>
-        <Link to='/'>Home</Link>
-      </li>
-      <li>
-        <Link to='/foods'>Top Foods</Link>
-      </li>
-      <li>
-        <Link to='/tracker'>Tracker</Link>
-      </li>
-      <li>
-        <Link to='/disclaimer'>Disclaimer</Link>
-      </li>
-      {/*     <li>
-        <a>GitHub</a>
-      </li> */}
-    </StyledMenu>
-  );
-};
-Navbar.propTypes = {
-  open: bool.isRequired
-};
-
-export default Navbar;

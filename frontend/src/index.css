@@ -4,7 +4,6 @@ body {
   font-family: 'Space Grotesk', sans-serif;
   margin: 0;
   padding: 0;
-  width: 320px;
 }
 
 /* ----------------------------------------------- */
@@ -40,7 +39,9 @@ h2 {
 }
 
 .main-container {
-  display: block;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   margin-top: 30%;
   margin-bottom: 20%;
