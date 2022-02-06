@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { API_URL } from 'utils/constants';
 import { useDispatch } from 'react-redux';
 import { onAddFood } from '../reducers/foods';
+import { current } from '@reduxjs/toolkit';
 
 // Styles
 export const SuggestionContainer = styled.div`
@@ -92,6 +93,7 @@ export const AddFood = () => {
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [showTotalValues, setShowTotalValues] = useState(false);
 
   const dispatch = useDispatch();
   const cleanInput = () => {
@@ -123,7 +125,12 @@ export const AddFood = () => {
     if (input.length > 0) {
       matches = foods.filter((food) => {
         const regex = new RegExp(input, 'gi'); // Case insensitive
-        return food.food.match(regex);
+        //   console.log(input);
+        //   console.log(food.food);
+        //   console.log(typeof food.food);
+        //   Temporarily deactivated (bug to fix)
+        //   return food.food.match(regex);
+        return food.food;
       });
     }
     setSuggestions(matches);
@@ -145,6 +152,24 @@ export const AddFood = () => {
       return selectedFood._id !== _id;
     });
     setSelectedFoods(removeFood);
+  };
+
+  const totalIron = () => {
+    const sumIron = selectedFoods
+      .map((item) => item.iron)
+      .reduce((prev, curr) => prev + curr, 0);
+    return sumIron;
+  };
+
+  const totalVitC = () => {
+    const sumVitC = selectedFoods
+      .map((item) => item.vitamin_c)
+      .reduce((prev, curr) => prev + curr, 0);
+    return sumVitC;
+  };
+
+  const onShowTotalValues = () => {
+    setShowTotalValues(!showTotalValues);
   };
 
   return (
@@ -214,6 +239,17 @@ export const AddFood = () => {
             <input type='text' placeholder='Vitamin C (mg)' />
             <TrackButton2>Save</TrackButton2>
           </form>
+        )}
+        {/* Calculate total nutrient values */}
+        <TrackButton2 onClick={onShowTotalValues}>
+          Total consumption
+        </TrackButton2>
+        {showTotalValues && (
+          <div>
+            <h3>Your final score: </h3>
+            <p>Iron: {totalIron()} mg</p>
+            <p>Vit. C: {totalVitC()} mg</p>
+          </div>
         )}
       </TrackerContainer>
     </>
