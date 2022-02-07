@@ -29,7 +29,7 @@ export const onAddNewFood = (input, setInput) => {
       dispatch(ui.actions.setLoading(true));
       const options = {
         method: 'POST',
-        body: JSON.stringify({ ...foods.food }),
+        body: JSON.stringify({ ...food }),
         headers: {
           'Content-Type': 'application/json'
         }

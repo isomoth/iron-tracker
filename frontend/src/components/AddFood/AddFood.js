@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { API_URL } from 'utils/constants';
 import { useDispatch } from 'react-redux';
-import { onAddFood } from '../../reducers/foods';
+// import { onAddFood } from '../../reducers/foods';
+import { onAddNewFood } from '../../reducers/food';
 import * as styles from './AddFood.styled';
 
 // Tracker Functionality
@@ -42,13 +43,10 @@ export const AddFood = () => {
   const onUserInput = (input) => {
     if (input.length > 0) {
       matches = foods.filter((food) => {
-        // const regex = new RegExp(input, 'gi'); // Case insensitive
-        //   console.log(input);
-        //   console.log(food.food);
-        //   console.log(typeof food.food);
-        //   Temporarily deactivated (bug to fix)
-        //   return food.food.match(regex);
-        return food.food;
+        const regex = new RegExp(input, 'gi'); // Case insensitive
+        return food.food.match(regex);
+        // Check that there aren't any incomplete or empty objects in the database:
+        // console.log(food);
       });
     }
     setSuggestions(matches);
@@ -58,10 +56,10 @@ export const AddFood = () => {
     }
   };
 
-  const addFood = (event) => {
+  const addFood = () => {
     if (matches.length === 0) {
-      event.preventDefault();
-      dispatch(onAddFood(input));
+      dispatch(onAddNewFood(input));
+      console.log('Your food was added!');
     }
     setInput('');
   };
@@ -157,17 +155,20 @@ export const AddFood = () => {
             Reset
           </styles.TrackButton2>
         )}
-        {matches.length !== 0 && (
-          <styles.TrackButton2 onClick={onShowForm}>
-            Add new food
-          </styles.TrackButton2>
-        )}
+        <styles.TrackButton2 onClick={onShowForm}>
+          Add new food
+        </styles.TrackButton2>
         {showForm && (
-          <form onSubmit={addFood}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              cleanInput();
+            }}
+          >
             <input type='text' placeholder='Food name' />
             <input type='text' placeholder='Iron (mg)' />
             <input type='text' placeholder='Vitamin C (mg)' />
-            <styles.TrackButton2>Save</styles.TrackButton2>
+            <styles.TrackButton2 onClick={addFood}>Save</styles.TrackButton2>
           </form>
         )}
         {/* Calculate total nutrient values */}
