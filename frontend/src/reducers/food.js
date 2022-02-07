@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+/* import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/constants';
 import { foods } from './foods';
 import { ui } from './ui';
@@ -47,3 +47,4 @@ export const onAddNewFood = (input, setInput) => {
     // setInput('');
   };
 };
+ */
