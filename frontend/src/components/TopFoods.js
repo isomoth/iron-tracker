@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from 'utils/constants';
-// import { useSafeDispatch } from 'hooks/useSafeDispatch';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { displayFoods, foods } from 'reducers/foods';
 
 export const TopFoods = () => {
-  //   const foods = useSelector((store) => store.foods.foods);
-  //   const unsafeDispatch = useDispatch();
-  //   const dispatch = useSafeDispatch(unsafeDispatch);
-
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {

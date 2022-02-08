@@ -1,4 +1,4 @@
-/* import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { API_URL } from 'utils/constants';
 import { foods } from './foods';
 import { ui } from './ui';
@@ -23,13 +23,17 @@ export const food = createSlice({
   }
 });
 
-export const onAddNewFood = (input, setInput) => {
+export const onAddNewFood = ({ food, vitamin_c, iron }) => {
   return (dispatch) => {
-    if (input.trim() !== '') {
+    if (food.trim() !== '') {
       dispatch(ui.actions.setLoading(true));
       const options = {
         method: 'POST',
-        body: JSON.stringify({ ...food }),
+        body: JSON.stringify({
+          food: food,
+          vitamin_c: vitamin_c,
+          iron: iron
+        }),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -44,7 +48,5 @@ export const onAddNewFood = (input, setInput) => {
           }
         });
     }
-    // setInput('');
   };
 };
- */

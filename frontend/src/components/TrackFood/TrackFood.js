@@ -1,28 +1,21 @@
+import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import React, { useEffect, useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { onAddNewFood } from 'reducers/food';
 import { API_URL } from 'utils/constants';
-import * as styles from './AddFood.styled';
+import * as styles from './TrackFood.styled';
 
-// Tracker Functionality
-export const AddFood = () => {
+export const TrackFood = () => {
   const [foods, setFoods] = useState([]);
-  const [input, setInput] = useState('');
   const [foodName, setFoodName] = useState('');
-  const [vitamin_c, setVitamin_c] = useState(0);
-  const [iron, setIron] = useState(0);
   const [message, setMessage] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
-  const [showForm, setShowForm] = useState(false);
-  const [showTotalValues, setShowTotalValues] = useState(false);
+  //   const [showTotalValues, setShowTotalValues] = useState(false);
 
   const cleanFood = () => {
     setFoodName('');
-  };
-
-  // Display a form for adding a new food
-  const onShowForm = () => {
-    setShowForm(!showForm);
   };
 
   useEffect(() => {
@@ -40,61 +33,20 @@ export const AddFood = () => {
   // Display suggestions when the user starts writing in the input field
   let matches = [];
 
-  const onFood = (input) => {
+  const onFoodSelect = (input) => {
     if (input.length > 0) {
       matches = foods.filter((food) => {
         const regex = new RegExp(input, 'gi'); // Case insensitive
-        // Check that there aren't any incomplete or empty objects in the database:
-        // console.log(food);
         return food.food.match(regex);
       });
     }
     setSuggestions(matches);
     setFoodName(input);
     if (matches.length === 0) {
-      /* setMessage('Food not found. Press "Add new food"'); */
+      setMessage('Food not found. Press "Add new food"');
       console.log('Add food: ', foodName);
     }
   };
-
-  // Version 1: Form handler with pure React
-  let handleAddFood = async (e) => {
-    e.preventDefault();
-    try {
-      //   if (matches.length === 0) {
-      let res = await fetch(API_URL('foods'), {
-        method: 'POST',
-        body: JSON.stringify({
-          food: foodName,
-          vitamin_c: vitamin_c,
-          iron: iron
-          //   food: 'blodpudding',
-          //   vitamin_c: 0,
-          //   iron: 20
-        }),
-        // Test if the payload is being sent
-        // body: JSON.stringify({ title: 'React POST Request Example' }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      // let resJson = await res.json();
-      if (res.status === 201) {
-        console.log(foodName);
-        setFoodName('');
-        setVitamin_c('');
-        setIron('');
-        setMessage('Food created successfully');
-      } else {
-        setMessage('Some error occurred');
-      }
-      //   }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  // Version 2: Form handler with Redux
 
   const deleteSelectedFoodHandler = (_id) => {
     const removeFood = selectedFoods.filter((selectedFood) => {
@@ -103,24 +55,24 @@ export const AddFood = () => {
     setSelectedFoods(removeFood);
   };
 
-  const totalIron = () => {
-    const sumIron = selectedFoods
-      .map((item) => item.iron)
-      .reduce((prev, curr) => prev + curr, 0);
-    // Round to two decimals
-    return sumIron.toFixed(2);
-  };
+  //   const totalIron = () => {
+  //     const sumIron = selectedFoods
+  //       .map((item) => item.iron)
+  //       .reduce((prev, curr) => prev + curr, 0);
+  //     // Round to two decimals
+  //     return sumIron.toFixed(2);
+  //   };
 
-  const totalVitC = () => {
-    const sumVitC = selectedFoods
-      .map((item) => item.vitamin_c)
-      .reduce((prev, curr) => prev + curr, 0);
-    return sumVitC.toFixed(2);
-  };
+  //   const totalVitC = () => {
+  //     const sumVitC = selectedFoods
+  //       .map((item) => item.vitamin_c)
+  //       .reduce((prev, curr) => prev + curr, 0);
+  //     return sumVitC.toFixed(2);
+  //   };
 
-  const onShowTotalValues = () => {
-    setShowTotalValues(!showTotalValues);
-  };
+  //   const onShowTotalValues = () => {
+  //     setShowTotalValues(!showTotalValues);
+  //   };
 
   return (
     <>
@@ -138,7 +90,7 @@ export const AddFood = () => {
               type='text'
               id='search'
               placeholder='Today I ate...'
-              onChange={(e) => onFood(e.target.value)}
+              onChange={(e) => onFoodSelect(e.target.value)}
               value={foodName}
               disabled={foods.length === 0}
             />
@@ -187,48 +139,10 @@ export const AddFood = () => {
             Reset
           </styles.TrackButton2>
         )}
-        <styles.TrackButton2 onClick={onShowForm}>
-          Add new food
-        </styles.TrackButton2>
-        {showForm && (
-          //   <form onSubmit={handleAddFood}>
-          <form onSubmit={handleAddFood}>
-            <input
-              type='text'
-              value={foodName}
-              placeholder='food name'
-              onChange={(e) => {
-                console.log(e.target.value);
-                setFoodName(e.target.value);
-              }}
-            />
-            <input
-              type='text'
-              value={vitamin_c}
-              placeholder='vit.c (mg)'
-              onChange={(e) => setVitamin_c(e.target.value)}
-            />
-            <input
-              type='text'
-              value={iron}
-              placeholder='iron'
-              onChange={(e) => setIron(e.target.value)}
-            />
-            <styles.TrackButton2
-              type='submit'
-              /*  onClick={() => {
-                console.log(food);
-                console.log(vitamin_c);
-                console.log(iron);
-              }} */
-            >
-              Save
-            </styles.TrackButton2>
-            <div className='message'>{message ? <p>{message}</p> : null}</div>
-          </form>
-        )}
+        {matches.length === 0 && <AddNewFood />}
+        <div className='message'>{message ? <p>{message}</p> : null}</div>
         {/* Calculate total nutrient values */}
-        {selectedFoods.length !== 0 && (
+        {/* {selectedFoods.length !== 0 && (
           <styles.TrackButton2 onClick={onShowTotalValues}>
             Total consumption
           </styles.TrackButton2>
@@ -239,7 +153,7 @@ export const AddFood = () => {
             <p>Iron: {totalIron()} mg</p>
             <p>Vit. C: {totalVitC()} mg</p>
           </div>
-        )}
+        )} */}
       </section>
     </>
   );

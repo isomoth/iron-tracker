@@ -8,15 +8,17 @@ import useOnClickOutside from 'hooks/useOnClickOutside';
 
 import { foods } from './reducers/foods';
 import { TopFoods } from './components/TopFoods';
-import { AddFood } from './components/AddFood/AddFood';
+import { TrackFood } from './components/TrackFood/TrackFood';
 import { Home } from './components/Home';
 import { Disclaimer } from 'components/Disclaimer';
 import Menu from 'components/Burger/Menu';
 import Burger from 'components/Burger/Burger';
 import Theme from 'components/Burger/Theme';
+import { food } from 'reducers/food';
 
 const reducer = combineReducers({
-  foods: foods.reducer
+  foods: foods.reducer,
+  food: food.reducer
 });
 
 const store = configureStore({ reducer });
@@ -39,10 +41,10 @@ export const App = () => {
             <Route path='/foods' element={<TopFoods />}></Route>
             <Route
               path='/tracker'
-              element={<AddFood />}
+              element={<TrackFood />}
               /* element={
               <>
-                <AddFood />
+                <TrackFood />
                 <FoodList />
               </> 
             } */

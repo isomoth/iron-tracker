@@ -14,14 +14,11 @@ export const SuggestionContainer = styled.div`
 `;
 
 export const InputContainer = styled.div`
-  /* position: relative; */
   width: 100%;
 `;
 
 export const TrackButton = styled.button`
   margin-left: -17%;
-  /* position: absolute; */
-  /* z-index: 2; */
   &:disabled {
     background: #073322;
   }
@@ -29,7 +26,6 @@ export const TrackButton = styled.button`
 
 export const TrackButton2 = styled.button`
   display: inline-flex;
-  /* position: relative; */
   &:disabled {
     background: #073322;
   }

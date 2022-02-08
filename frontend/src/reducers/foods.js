@@ -49,9 +49,9 @@ export const displayFoods = () => {
 //       const options = {
 //         method: 'POST',
 //         body: JSON.stringify({
-//           food: input.food,
-//           vitamin_c: input.vitamin_c,
-//           iron: input.iron
+//           food: food,
+//           vitamin_c: vitamin_c,
+//           iron: iron
 //         }),
 //         headers: {
 //           'Content-Type': 'application/json'
