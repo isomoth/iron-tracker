@@ -41,46 +41,51 @@ export const displayFoods = () => {
   };
 };
 
-export const onAddFood = (input, setInput) => {
-  return (dispatch) => {
-    if (input.trim() !== '') {
-      dispatch(ui.actions.setLoading(true));
-      const options = {
-        method: 'POST',
-        body: JSON.stringify({ food: input }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-      fetch(API_URL('foods'), options)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            dispatch(foods.actions.setError(null));
-          } else {
-            dispatch(foods.actions.setError(data.response));
-          }
-        });
-    }
-    // setInput('');
-  };
-};
+// export const onAddFood = (input, setInput) => {
+//   return (dispatch) => {
+//     console.log('input', input);
+//     if (input.trim() !== '') {
+//       dispatch(ui.actions.setLoading(true));
+//       const options = {
+//         method: 'POST',
+//         body: JSON.stringify({
+//           food: input.food,
+//           vitamin_c: input.vitamin_c,
+//           iron: input.iron
+//         }),
+//         headers: {
+//           'Content-Type': 'application/json'
+//         }
+//       };
+//       fetch(API_URL('foods'), options)
+//         .then((res) => res.json())
+//         .then((data) => {
+//           if (data.success) {
+//             dispatch(foods.actions.setError(null));
+//           } else {
+//             dispatch(foods.actions.setError(data.response));
+//           }
+//         });
+//     }
+//     // setInput('');
+//   };
+// };
 
-export const onDeleteFood = (_id) => {
-  return (dispatch) => {
-    const options = {
-      method: 'DELETE'
-    };
-    fetch(API_URL('foods/id/:_id'), options)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          dispatch(foods.actions.deleteFood(_id));
-          dispatch(foods.actions.setError(null));
-        } else {
-          dispatch(foods.actions.setFoods([]));
-          dispatch(foods.actions.setError(data.response));
-        }
-      });
-  };
-};
+// export const onDeleteFood = (_id) => {
+//   return (dispatch) => {
+//     const options = {
+//       method: 'DELETE'
+//     };
+//     fetch(API_URL('foods/id/:_id'), options)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         if (data.success) {
+//           dispatch(foods.actions.deleteFood(_id));
+//           dispatch(foods.actions.setError(null));
+//         } else {
+//           dispatch(foods.actions.setFoods([]));
+//           dispatch(foods.actions.setError(data.response));
+//         }
+//       });
+//   };
+// };

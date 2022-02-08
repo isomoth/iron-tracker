@@ -6,7 +6,7 @@ import * as styles from './AddFood.styled';
 export const AddFood = () => {
   const [foods, setFoods] = useState([]);
   const [input, setInput] = useState('');
-  const [food, setFood] = useState('');
+  const [foodName, setFoodName] = useState('');
   const [vitamin_c, setVitamin_c] = useState(0);
   const [iron, setIron] = useState(0);
   const [message, setMessage] = useState('');
@@ -17,7 +17,7 @@ export const AddFood = () => {
   const [showTotalValues, setShowTotalValues] = useState(false);
 
   const cleanFood = () => {
-    setFood('');
+    setFoodName('');
   };
 
   // Display a form for adding a new food
@@ -32,7 +32,7 @@ export const AddFood = () => {
   }, []);
 
   const suggestionHandler = (suggestion) => {
-    setFood(suggestion.food);
+    setFoodName(suggestion.food);
     setSelectedFood(suggestion);
     setSuggestions([]);
   };
@@ -50,13 +50,14 @@ export const AddFood = () => {
       });
     }
     setSuggestions(matches);
-    setFood(input);
+    setFoodName(input);
     if (matches.length === 0) {
       /* setMessage('Food not found. Press "Add new food"'); */
-      console.log('Add food: ', food);
+      console.log('Add food: ', foodName);
     }
   };
 
+  // Version 1: Form handler with pure React
   let handleAddFood = async (e) => {
     e.preventDefault();
     try {
@@ -64,14 +65,23 @@ export const AddFood = () => {
       let res = await fetch(API_URL('foods'), {
         method: 'POST',
         body: JSON.stringify({
-          food: food,
+          food: foodName,
           vitamin_c: vitamin_c,
           iron: iron
-        })
+          //   food: 'blodpudding',
+          //   vitamin_c: 0,
+          //   iron: 20
+        }),
+        // Test if the payload is being sent
+        // body: JSON.stringify({ title: 'React POST Request Example' }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
       // let resJson = await res.json();
-      if (res.status === 200) {
-        setFood('');
+      if (res.status === 201) {
+        console.log(foodName);
+        setFoodName('');
         setVitamin_c('');
         setIron('');
         setMessage('Food created successfully');
@@ -79,13 +89,12 @@ export const AddFood = () => {
         setMessage('Some error occurred');
       }
       //   }
-      setFood('');
-      setVitamin_c('');
-      setIron('');
     } catch (err) {
       console.log(err);
     }
   };
+
+  // Version 2: Form handler with Redux
 
   const deleteSelectedFoodHandler = (_id) => {
     const removeFood = selectedFoods.filter((selectedFood) => {
@@ -130,7 +139,7 @@ export const AddFood = () => {
               id='search'
               placeholder='Today I ate...'
               onChange={(e) => onFood(e.target.value)}
-              value={food}
+              value={foodName}
               disabled={foods.length === 0}
             />
             <styles.TrackButton disabled={foods.length === 0}>
@@ -182,12 +191,16 @@ export const AddFood = () => {
           Add new food
         </styles.TrackButton2>
         {showForm && (
+          //   <form onSubmit={handleAddFood}>
           <form onSubmit={handleAddFood}>
             <input
               type='text'
-              value={food}
+              value={foodName}
               placeholder='food name'
-              onChange={(e) => setFood(e.target.value)}
+              onChange={(e) => {
+                console.log(e.target.value);
+                setFoodName(e.target.value);
+              }}
             />
             <input
               type='text'
@@ -203,11 +216,11 @@ export const AddFood = () => {
             />
             <styles.TrackButton2
               type='submit'
-              onClick={() => {
+              /*  onClick={() => {
                 console.log(food);
                 console.log(vitamin_c);
                 console.log(iron);
-              }}
+              }} */
             >
               Save
             </styles.TrackButton2>
