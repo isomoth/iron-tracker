@@ -15,10 +15,11 @@ export const SuggestionContainer = styled.div`
 
 export const InputContainer = styled.div`
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const TrackButton = styled.button`
-  margin-left: -17%;
+  // margin-left: -17%;
   &:disabled {
     background: #073322;
   }
