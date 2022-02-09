@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import { API_URL } from 'utils/constants';
 import * as styles from './TrackFood.styled';
+import { TotalValues } from '../TotalValues/TotalValues';
 
 export const TrackFood = () => {
   const [foods, setFoods] = useState([]);
@@ -10,7 +11,7 @@ export const TrackFood = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
-  //   const [showTotalValues, setShowTotalValues] = useState(false);
+  const [showTotalValues, setShowTotalValues] = useState(false);
 
   const cleanFood = () => {
     setFoodName('');
@@ -53,24 +54,24 @@ export const TrackFood = () => {
   };
 
   // This part will be moved to the TotalValues component.
-  //   const totalIron = () => {
-  //     const sumIron = selectedFoods
-  //       .map((item) => item.iron)
-  //       .reduce((prev, curr) => prev + curr, 0);
-  //     // Round to two decimals
-  //     return sumIron.toFixed(2);
-  //   };
+  const totalIron = () => {
+    const sumIron = selectedFoods
+      .map((item) => item.iron)
+      .reduce((prev, curr) => prev + curr, 0);
+    // Round to two decimals
+    return sumIron.toFixed(2);
+  };
 
-  //   const totalVitC = () => {
-  //     const sumVitC = selectedFoods
-  //       .map((item) => item.vitamin_c)
-  //       .reduce((prev, curr) => prev + curr, 0);
-  //     return sumVitC.toFixed(2);
-  //   };
+  const totalVitC = () => {
+    const sumVitC = selectedFoods
+      .map((item) => item.vitamin_c)
+      .reduce((prev, curr) => prev + curr, 0);
+    return sumVitC.toFixed(2);
+  };
 
-  //   const onShowTotalValues = () => {
-  //     setShowTotalValues(!showTotalValues);
-  //   };
+  const onShowTotalValues = () => {
+    setShowTotalValues(!showTotalValues);
+  };
 
   return (
     <>
@@ -80,6 +81,10 @@ export const TrackFood = () => {
           onSubmit={(event) => {
             event.preventDefault();
             setSelectedFoods([...selectedFoods, selectedFood]);
+            localStorage.setItem('todaysFood', [
+              ...selectedFoods,
+              selectedFood
+            ]);
             cleanFood();
           }}
         >
@@ -141,7 +146,7 @@ export const TrackFood = () => {
         <div className='message'>{message ? <p>{message}</p> : null}</div>
         {/* This part will be moved to the TotalValues component.  */}
         {/* Calculate total nutrient values */}
-        {/* {selectedFoods.length !== 0 && (
+        {/*  {selectedFoods.length !== 0 && (
           <styles.TrackButton2 onClick={onShowTotalValues}>
             Total consumption
           </styles.TrackButton2>
@@ -153,7 +158,9 @@ export const TrackFood = () => {
             <p>Vit. C: {totalVitC()} mg</p>
           </div>
         )} */}
-      </section>
+        <TotalValues isChanged={selectedFoods.length} />
+        {selectedFoods.length > 0 && <TotalValues isChanged={selectedFoods} />}
+      </section>{' '}
     </>
   );
 };

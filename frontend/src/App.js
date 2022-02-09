@@ -41,7 +41,7 @@ export const App = () => {
             <Route path='/foods' element={<TopFoods />}></Route>
             <Route
               path='/tracker'
-              element={<TrackFood />}
+              element={<TrackFood isChanged={[]} />}
               /* element={
               <>
                 <TrackFood />

@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { onAddNewFood } from 'reducers/food';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export const TrackButton2 = styled.button`
