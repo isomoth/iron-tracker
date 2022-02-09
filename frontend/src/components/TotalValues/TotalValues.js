@@ -1,3 +1,5 @@
+// This component will have a function to calculate the total consumption of iron and vitamin C when the user clicks on the "Total consumption" button after tracking some foods.
+
 /* import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 

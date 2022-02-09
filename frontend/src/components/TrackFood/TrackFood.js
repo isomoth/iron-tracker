@@ -1,7 +1,5 @@
-import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { onAddNewFood } from 'reducers/food';
+import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import { API_URL } from 'utils/constants';
 import * as styles from './TrackFood.styled';
 
@@ -44,7 +42,6 @@ export const TrackFood = () => {
     setFoodName(input);
     if (matches.length === 0) {
       setMessage('Food not found. Press "Add new food"');
-      console.log('Add food: ', foodName);
     }
   };
 
@@ -55,6 +52,7 @@ export const TrackFood = () => {
     setSelectedFoods(removeFood);
   };
 
+  // This part will be moved to the TotalValues component.
   //   const totalIron = () => {
   //     const sumIron = selectedFoods
   //       .map((item) => item.iron)
@@ -141,6 +139,7 @@ export const TrackFood = () => {
         )}
         {matches.length === 0 && <AddNewFood />}
         <div className='message'>{message ? <p>{message}</p> : null}</div>
+        {/* This part will be moved to the TotalValues component.  */}
         {/* Calculate total nutrient values */}
         {/* {selectedFoods.length !== 0 && (
           <styles.TrackButton2 onClick={onShowTotalValues}>

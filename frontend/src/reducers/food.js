@@ -50,3 +50,11 @@ export const onAddNewFood = ({ food, vitamin_c, iron }) => {
     }
   };
 };
+
+// Can the state of the suggestions and selectedFoods be managed from this component, or is it better to create a new one for that purpose?
+
+/* const handleSuggestion = (food) => {
+	setFood(food);
+	setSelectedFood
+}
+ */
