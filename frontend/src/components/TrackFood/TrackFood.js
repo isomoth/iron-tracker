@@ -11,7 +11,6 @@ export const TrackFood = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
-  const [showTotalValues, setShowTotalValues] = useState(false);
 
   const cleanFood = () => {
     setFoodName('');
@@ -53,38 +52,14 @@ export const TrackFood = () => {
     setSelectedFoods(removeFood);
   };
 
-  // This part will be moved to the TotalValues component.
-  const totalIron = () => {
-    const sumIron = selectedFoods
-      .map((item) => item.iron)
-      .reduce((prev, curr) => prev + curr, 0);
-    // Round to two decimals
-    return sumIron.toFixed(2);
-  };
-
-  const totalVitC = () => {
-    const sumVitC = selectedFoods
-      .map((item) => item.vitamin_c)
-      .reduce((prev, curr) => prev + curr, 0);
-    return sumVitC.toFixed(2);
-  };
-
-  const onShowTotalValues = () => {
-    setShowTotalValues(!showTotalValues);
-  };
-
   return (
     <>
       <section className='main-container'>
-        <h1>TODAY'S IRON INTAKE</h1>
+        <h1>IRON INTAKE</h1>
         <form
           onSubmit={(event) => {
             event.preventDefault();
             setSelectedFoods([...selectedFoods, selectedFood]);
-            localStorage.setItem('todaysFood', [
-              ...selectedFoods,
-              selectedFood
-            ]);
             cleanFood();
           }}
         >
@@ -144,23 +119,10 @@ export const TrackFood = () => {
         )}
         {matches.length === 0 && <AddNewFood />}
         <div className='message'>{message ? <p>{message}</p> : null}</div>
-        {/* This part will be moved to the TotalValues component.  */}
-        {/* Calculate total nutrient values */}
-        {/*  {selectedFoods.length !== 0 && (
-          <styles.TrackButton2 onClick={onShowTotalValues}>
-            Total consumption
-          </styles.TrackButton2>
-        )}
-        {showTotalValues && (
-          <div>
-            <h3>My final score: </h3>
-            <p>Iron: {totalIron()} mg</p>
-            <p>Vit. C: {totalVitC()} mg</p>
-          </div>
-        )} */}
-        <TotalValues isChanged={selectedFoods.length} />
-        {selectedFoods.length > 0 && <TotalValues isChanged={selectedFoods} />}
-      </section>{' '}
+        {/* TrackFood is a parent component to TotalValues (child). selectedFoods acts as a parent state, passed to TotalValues as a prop. */}
+        {/* In the child component, the useEffect hook will listen to this prop every time it changes from the parent:  */}
+        <TotalValues isChanged={selectedFoods} />
+      </section>
     </>
   );
 };

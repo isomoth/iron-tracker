@@ -40,8 +40,8 @@ h2 {
 
 .main-container {
   align-items: center;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   text-align: center;
   margin-top: 30%;
   margin-left: auto;
@@ -55,6 +55,7 @@ button {
   border-color: #3cf281;
   box-shadow: 0 0 2px rgba(60, 242, 129, 0.9), 0 0 4px rgba(60, 242, 129, 0.4),
     0 0 1rem rgba(60, 242, 129, 0.3), 0 0 4rem rgba(60, 242, 129, 0.1);
+
   color: #fff;
   font-size: 1rem;
   border-radius: 0.15rem;
@@ -159,12 +160,15 @@ a:hover {
     margin-top: 20%;
   }
   input {
-    width: 50%;
+    width: 100%;
   }
 }
 
 @media only screen and (min-width: 1024px) {
   .main-container {
     margin-top: 10%;
+  }
+  input {
+    width: 90%;
   }
 }
