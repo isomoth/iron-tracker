@@ -40,8 +40,8 @@ h2 {
 
 .main-container {
   align-items: center;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   text-align: center;
   margin-top: 30%;
   margin-left: auto;
