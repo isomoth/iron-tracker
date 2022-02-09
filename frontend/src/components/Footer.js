@@ -26,15 +26,9 @@ export const Footer = () => {
           href='https://github.com/isomoth'
         >
           Isabel González
-        </FooterLink>{' '}
-        @ Technigo
+        </FooterLink>
       </p>
       <p>Copyright {currentYear}</p>
-      <p>
-        This application does not provide medical advice, diagnosis or
-        treatment.
-      </p>
-      <p>See additional information.</p>
     </FooterContainer>
   );
 };
