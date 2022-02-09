@@ -11,7 +11,7 @@ export const TrackFood = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
-  const [showTotalValues, setShowTotalValues] = useState(false);
+  // const [showTotalValues, setShowTotalValues] = useState(false);
 
   const cleanFood = () => {
     setFoodName('');
@@ -53,64 +53,69 @@ export const TrackFood = () => {
     setSelectedFoods(removeFood);
   };
 
-  // This part will be moved to the TotalValues component.
-  const totalIron = () => {
-    const sumIron = selectedFoods
-      .map((item) => item.iron)
-      .reduce((prev, curr) => prev + curr, 0);
-    // Round to two decimals
-    return sumIron.toFixed(2);
-  };
+  // This part is moved to the TotalValues component.
+  // const totalIron = () => {
+  //   const sumIron = selectedFoods
+  //     .map((item) => item.iron)
+  //     .reduce((prev, curr) => prev + curr, 0);
+  //   // Round to two decimals
+  //   return sumIron.toFixed(2);
+  // };
 
-  const totalVitC = () => {
-    const sumVitC = selectedFoods
-      .map((item) => item.vitamin_c)
-      .reduce((prev, curr) => prev + curr, 0);
-    return sumVitC.toFixed(2);
-  };
+  // const totalVitC = () => {
+  //   const sumVitC = selectedFoods
+  //     .map((item) => item.vitamin_c)
+  //     .reduce((prev, curr) => prev + curr, 0);
+  //   return sumVitC.toFixed(2);
+  // };
 
-  const onShowTotalValues = () => {
-    setShowTotalValues(!showTotalValues);
-  };
+  // const onShowTotalValues = () => {
+  //   setShowTotalValues(!showTotalValues);
+  // };
 
   return (
     <>
       <section className='main-container'>
         <h1>TODAY'S IRON INTAKE</h1>
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            setSelectedFoods([...selectedFoods, selectedFood]);
-            localStorage.setItem('todaysFood', [
-              ...selectedFoods,
-              selectedFood
-            ]);
-            cleanFood();
-          }}
-        >
-          <styles.InputContainer>
-            <input
-              type='text'
-              id='search'
-              placeholder='Today I ate...'
-              onChange={(e) => onFoodSelect(e.target.value)}
-              value={foodName}
-              disabled={foods.length === 0}
-            />
-            <styles.TrackButton disabled={foods.length === 0}>
-              Track
-            </styles.TrackButton>
-          </styles.InputContainer>
-          {suggestions &&
-            suggestions.map((suggestion, _id) => (
-              <styles.SuggestionContainer
-                key={suggestion._id}
-                onClick={() => suggestionHandler(suggestion)}
-              >
-                {suggestion.food}
-              </styles.SuggestionContainer>
-            ))}
-        </form>
+        <div>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setSelectedFoods([...selectedFoods, selectedFood]);
+
+              //no need for local storage now you can remove it
+              // localStorage.setItem('todaysFood', [
+              //   ...selectedFoods,
+              //   selectedFood
+              // ]);
+              cleanFood();
+            }}
+          >
+            <styles.InputContainer>
+              <input
+                type='text'
+                id='search'
+                placeholder='Today I ate...'
+                onChange={(e) => onFoodSelect(e.target.value)}
+                value={foodName}
+                disabled={foods.length === 0}
+              />
+              <styles.TrackButton disabled={foods.length === 0}>
+                Track
+              </styles.TrackButton>
+            </styles.InputContainer>
+            {suggestions &&
+              suggestions.map((suggestion, _id) => (
+                <styles.SuggestionContainer
+                  key={suggestion._id}
+                  onClick={() => suggestionHandler(suggestion)}
+                >
+                  {suggestion.food}
+                </styles.SuggestionContainer>
+              ))}
+          </form>
+        </div>
+        
         {/* Display the selected food with its nutritional values */}
         {selectedFoods.map((selectedFood, _id) => (
           <styles.FoodDataContainer key={selectedFood._id}>
@@ -144,7 +149,7 @@ export const TrackFood = () => {
         )}
         {matches.length === 0 && <AddNewFood />}
         <div className='message'>{message ? <p>{message}</p> : null}</div>
-        {/* This part will be moved to the TotalValues component.  */}
+        {/* This part is moved TotalValues component.  */}
         {/* Calculate total nutrient values */}
         {/*  {selectedFoods.length !== 0 && (
           <styles.TrackButton2 onClick={onShowTotalValues}>
@@ -158,9 +163,10 @@ export const TrackFood = () => {
             <p>Vit. C: {totalVitC()} mg</p>
           </div>
         )} */}
-        <TotalValues isChanged={selectedFoods.length} />
-        {selectedFoods.length > 0 && <TotalValues isChanged={selectedFoods} />}
-      </section>{' '}
+         {/* TrackFood is a parent and TotalValues is a child component and here we are simply passing parent state to child component as a prop 
+         and in child component, useEffect hook will listen to this prop every time it changes from parent  */}
+        <TotalValues isChanged={selectedFoods} />
+      </section>
     </>
   );
 };
