@@ -16,8 +16,8 @@ export const TotalValues = ({ isChanged }) => {
   const [selectedFoods, setSelectedFood] = useState(isChanged);
   const [showTotalValues, setShowTotalValues] = useState(false);
   useEffect(() => {
-    // Every time the value in isChanged is updated from TrackFood (the parent component), this useEffect will re-render the component.
-    // Then it will save the prop in the state and use it for calculations later on.
+    // When isChanged is updated in TrackFood (the parent component), useEffect re-renders the component.
+    // Then it saves the prop in the state, using it for calculations later on.
     setSelectedFood(isChanged);
   }, [isChanged]);
 

@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-// import crypto from 'crypto';
-// import bcrypt from 'bcrypt';
 import foodData from './data/foodData.json';
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/iron-tracker';
@@ -130,106 +128,6 @@ app.patch('/foods/id/:_id', async (req, res) => {
   }
 });
 
-// const userSchema = new mongoose.Schema({
-//   username: {
-//     type: String,
-//     unique: true,
-//     required: true
-//   },
-//   password: {
-//     type: String,
-//     required: true
-//   },
-//   accessToken: {
-//     type: String,
-//     default: () => crypto.randomBytes(128).toString('hex')
-//   }
-// });
-
-// const User = mongoose.model('User', userSchema);
-
-// // Check if the user is logged in
-// const authenticateUser = async (req, res, next) => {
-//   const accessToken = req.header('Authorization');
-
-//   try {
-//     const user = await User.findOne({ accessToken });
-//     if (user) {
-//       next();
-//     } else {
-//       res.status(401).json({ response: 'Please log in', success: false });
-//     }
-//   } catch (error) {
-//     res.status(400).json({ response: error, success: false });
-//   }
-// };
-
-// // Set what users see when they log in
-// app.get('/foods', authenticateUser);
-// app.get('/foods', async (req, res) => {
-//   const foods = await Food.find({});
-//   res.status(201).json({ response: foods, success: true });
-// });
-
-// // Create a user
-// app.post('/signup', async (req, res) => {
-//   const { username, password } = req.body;
-
-//   try {
-//     const salt = bcrypt.genSaltSync(); // Create a randomizer to prevent unhashing
-//     const strongPassword =
-//       /^(?!.*\s)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).{8,20}$/;
-
-//     // checking if password match strongPassword = regex
-//     if (password.match(strongPassword)) {
-//       const newUser = await new User({
-//         username,
-//         password: bcrypt.hashSync(password, salt)
-//       }).save();
-//       res.status(201).json({
-//         response: {
-//           userId: newUser._id,
-//           username: newUser.username,
-//           accessToken: newUser.accessToken
-//         },
-//         success: true
-//       });
-//     } else {
-//       throw 'Your password must contain at least 8 characters, at least one letter, one number and one special character';
-//     }
-//   } catch (error) {
-//     res.status(400).json({ response: error, success: false });
-//   }
-// });
-
-// Signing in, matching username and password
-// if you include accessToken in your request = you are logged in
-/* app.post('/signin', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const user = await User.findOne({ username });
-
-    if (user && bcrypt.compareSync(password, user.password)) {
-      res.status(200).json({
-        response: {
-          userId: user._id,
-          username: user.username,
-          accessToken: user.accessToken
-        },
-        success: true
-      });
-    } else {
-      res.status(404).json({
-        response: "Username or password doesn't match.",
-        success: false
-      });
-    }
-  } catch (error) {
-    res.status(400).json({ response: error, success: false });
-  }
-});
- */
 // Avoid duplicates upon restarting
 // if (process.env.RESET_DB) {
 const seedDatabase = async () => {

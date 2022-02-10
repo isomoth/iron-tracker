@@ -71,11 +71,6 @@ export const TrackFood = () => {
               onChange={(e) => onFoodSelect(e.target.value)}
               value={foodName}
               disabled={foods.length === 0}
-              /* onBlur={() => {
-                setTimeout(() => {
-                  setSuggestions([]);
-                }, 100);
-              }} */
             />
             <styles.TrackButton disabled={foods.length === 0}>
               Track

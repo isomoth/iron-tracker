@@ -42,12 +42,6 @@ export const App = () => {
             <Route
               path='/tracker'
               element={<TrackFood isChanged={[]} />}
-              /* element={
-              <>
-                <TrackFood />
-                <FoodList />
-              </> 
-            } */
             ></Route>
             <Route path='/disclaimer' element={<Disclaimer />}></Route>
           </Routes>
