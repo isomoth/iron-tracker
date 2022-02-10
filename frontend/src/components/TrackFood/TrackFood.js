@@ -41,7 +41,7 @@ export const TrackFood = () => {
     setSuggestions(matches);
     setFoodName(input);
     if (matches.length === 0) {
-      setMessage('Food not found. Press "Add new food"');
+      setMessage('Food not found. Press "Add"');
     }
   };
 
@@ -71,20 +71,27 @@ export const TrackFood = () => {
               onChange={(e) => onFoodSelect(e.target.value)}
               value={foodName}
               disabled={foods.length === 0}
+              /* onBlur={() => {
+                setTimeout(() => {
+                  setSuggestions([]);
+                }, 100);
+              }} */
             />
             <styles.TrackButton disabled={foods.length === 0}>
               Track
             </styles.TrackButton>
           </styles.InputContainer>
-          {suggestions &&
-            suggestions.map((suggestion, _id) => (
-              <styles.SuggestionContainer
-                key={suggestion._id}
-                onClick={() => suggestionHandler(suggestion)}
-              >
-                {suggestion.food}
-              </styles.SuggestionContainer>
-            ))}
+          <styles.SuggestionsContainer>
+            {suggestions &&
+              suggestions.map((suggestion, _id) => (
+                <styles.SuggestionContainer
+                  key={suggestion._id}
+                  onClick={() => suggestionHandler(suggestion)}
+                >
+                  {suggestion.food}
+                </styles.SuggestionContainer>
+              ))}
+          </styles.SuggestionsContainer>
         </form>
         {/* Display the selected food with its nutritional values */}
         {selectedFoods.map((selectedFood, _id) => (
@@ -97,26 +104,26 @@ export const TrackFood = () => {
               Vit. C: {selectedFood.vitamin_c}
             </styles.DisplayedNutrition>
             <styles.DisplayedNutrition>
-              <button
+              <styles.DeleteButton
                 onClick={() => deleteSelectedFoodHandler(selectedFood._id)}
               >
                 x
-              </button>
+              </styles.DeleteButton>
             </styles.DisplayedNutrition>
           </styles.FoodDataContainer>
         ))}
-        {selectedFoods.length !== 0 && (
-          <styles.TrackButton2
-            onClick={() => {
-              if (selectedFoods.length !== 0) {
-                setSelectedFoods([]);
-              }
-            }}
-            disabled={selectedFoods.length === 0}
-          >
-            Reset
-          </styles.TrackButton2>
-        )}
+        {/* {selectedFoods.length !== 0 && ( */}
+        <styles.ResetButton
+          onClick={() => {
+            if (selectedFoods.length !== 0) {
+              setSelectedFoods([]);
+            }
+          }}
+          disabled={selectedFoods.length === 0}
+        >
+          Reset
+        </styles.ResetButton>
+        {/* )} */}
         {matches.length === 0 && <AddNewFood />}
         <div className='message'>{message ? <p>{message}</p> : null}</div>
         {/* TrackFood is a parent component to TotalValues (child). selectedFoods acts as a parent state, passed to TotalValues as a prop. */}

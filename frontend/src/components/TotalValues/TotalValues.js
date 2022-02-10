@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import * as styles from '../TrackFood/TrackFood.styled';
+import styled from 'styled-components';
+
+export const TotalValuesButton = styled.button`
+  background: #3be280;
+  margin: 5%;
+  &:disabled {
+    background: #2e7a5d;
+  }
+  &:hover {
+    background: #6b40ad;
+  }
+`;
 
 export const TotalValues = ({ isChanged }) => {
   const [selectedFoods, setSelectedFood] = useState(isChanged);
@@ -32,9 +43,7 @@ export const TotalValues = ({ isChanged }) => {
   return (
     <>
       {selectedFoods && selectedFoods.length !== 0 && (
-        <styles.TrackButton2 onClick={onShowTotalValues}>
-          Total consumption
-        </styles.TrackButton2>
+        <TotalValuesButton onClick={onShowTotalValues}>Total</TotalValuesButton>
       )}
       {showTotalValues && (
         <div>

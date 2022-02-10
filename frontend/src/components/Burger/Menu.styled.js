@@ -15,7 +15,7 @@ export const StyledMenu = styled.nav`
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 70%;
+    width: 75%;
   }
 
   a {
