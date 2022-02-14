@@ -21,17 +21,17 @@
 ### Frontend
 
 - The state management was done via two reducers: foods (for the whole dataset) and food (for each food item)
-- The TrackFood component acts as a parent component to the TopValues component, which in turn listen to oits changes and saves its prop. It uses it for calculations later on.
+- The TrackFood component acts as a parent component to the TopValues component, which in turn listens to its changes and saves its prop. Then it uses this prop for calculations later on.
 
 ### Backend
 
 - Food Database modeled from a dataset from Kaggle: https://www.kaggle.com/shrutisaxena/food-nutrition-dataset
-- Endpoints: /foods (all foods), /foods/iron (foods richest in iron), /foods/id/:\_id (get foods by id).
-- DELETE and PATCH requests (will be implemented in the frontend in the future).
+- Endpoints: /foods (all foods), /foods/iron (foods richest in iron), /foods/id/:id (get foods by id).
+- DELETE and PATCH requests (possible frontend implementation in the future).
 
 ## Challenges and lessons learned
 
-- The whole project was an exercise in debugging techniques. I became way more acquainted with the browser's dev tools as a result.
+- The whole project was an exercise in debugging techniques. I became way more acquainted with the nuances of the browser's dev tools as a result.
 - The major challenge was the integration between the backend and frontend. The debugging in this part wasn't always as intuitive.
 - Last but not least, there were two main causes for several of the most difficult bugs: Type inconsistency (the more the steps of a function, the higher the risk), and array iteration. Solutions like console.logging typeof and making sure the database didn't get corrupted while testing POST requests were quite helpful.
 

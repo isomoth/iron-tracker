@@ -129,17 +129,17 @@ app.patch('/foods/id/:_id', async (req, res) => {
 });
 
 // Avoid duplicates upon restarting
-// if (process.env.RESET_DB) {
-const seedDatabase = async () => {
-  await Food.deleteMany({});
+if (process.env.RESET_DB) {
+  const seedDatabase = async () => {
+    await Food.deleteMany({});
 
-  foodData.forEach((item) => {
-    const newFood = new Food(item);
-    newFood.save();
-  });
-};
-seedDatabase();
-// }
+    foodData.forEach((item) => {
+      const newFood = new Food(item);
+      newFood.save();
+    });
+  };
+  seedDatabase();
+}
 
 // Start the server
 app.listen(port, () => {
