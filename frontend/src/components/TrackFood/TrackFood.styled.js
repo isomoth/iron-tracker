@@ -57,7 +57,7 @@ export const DeleteButton = styled.button`
   background: #3be280;
   margin-left: -5%;
   position: absolute;
-  text-align: left;
+  text-align: center;
   width: 8%;
   &:hover {
     background: #2e7a5d;

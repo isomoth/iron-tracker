@@ -62,6 +62,11 @@ export const TrackFood = () => {
             setSelectedFoods([...selectedFoods, selectedFood]);
             cleanFood();
           }}
+          onBlur={() => {
+            setTimeout(() => {
+              setSuggestions([]);
+            }, 100);
+          }}
         >
           <styles.InputContainer>
             <input
@@ -107,7 +112,6 @@ export const TrackFood = () => {
             </styles.DisplayedNutrition>
           </styles.FoodDataContainer>
         ))}
-        {/* {selectedFoods.length !== 0 && ( */}
         <styles.ResetButton
           onClick={() => {
             if (selectedFoods.length !== 0) {
@@ -118,7 +122,6 @@ export const TrackFood = () => {
         >
           Reset
         </styles.ResetButton>
-        {/* )} */}
         {matches.length === 0 && <AddNewFood />}
         <div className='message'>{message ? <p>{message}</p> : null}</div>
         {/* TrackFood is a parent component to TotalValues (child). selectedFoods acts as a parent state, passed to TotalValues as a prop. */}
