@@ -12,7 +12,7 @@ export const TopFoodsContainer = styled.div`
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5%;
+  margin-top: 15%;
   width: 80%;
   overflow: hidden;
 `;
