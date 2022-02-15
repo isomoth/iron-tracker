@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 export const TotalValuesButton = styled.button`
-  background: #3be280;
+  background: #00c9a5;
   margin: 5%;
   &:disabled {
     background: #2e7a5d;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from 'utils/constants';
 import styled, { keyframes } from 'styled-components';
+import Loading from '../components/Loading/Loading';
 
 const ScrollAnimation = keyframes`
   from { top: 0; transform: translateZ(0) rotateX(20deg)}
@@ -12,9 +13,12 @@ export const TopFoodsContainer = styled.div`
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 15%;
+  margin-top: 20%;
   width: 80%;
   overflow: hidden;
+  @media (min-width: 768px) {
+    margin-top: 10%;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -42,15 +46,19 @@ export const TopIron = styled.p`
 
 export const TopFoods = () => {
   const [foods, setFoods] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     fetch(API_URL('foods?iron=60'))
       .then((res) => res.json())
-      .then((data) => setFoods(data));
+      .then((data) => setFoods(data))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <TopFoodsContainer>
+      {loading && <Loading />}
       <TitleContainer>
         <h1>IRON-RICH FOODS</h1>
         <h2>HALL OF FAME</h2>

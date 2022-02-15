@@ -20,6 +20,7 @@ export const AddFoodForm = styled.form`
   color: #46d5da;
   padding-top: 5%;
   margin-top: 5%;
+  margin-bottom: 5%;
 `;
 
 export const SaveButton = styled.button`

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { AddNewFood } from 'components/AddNewFood/AddNewFood';
-import { API_URL } from 'utils/constants';
 import * as styles from './TrackFood.styled';
+import { API_URL } from 'utils/constants';
+
+import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import { TotalValues } from '../TotalValues/TotalValues';
+import Loading from 'components/Loading/Loading';
 
 export const TrackFood = () => {
   const [foods, setFoods] = useState([]);
@@ -11,15 +13,18 @@ export const TrackFood = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const cleanFood = () => {
     setFoodName('');
   };
 
   useEffect(() => {
+    setLoading(true);
     fetch(API_URL('foods'))
       .then((res) => res.json())
-      .then((data) => setFoods(data));
+      .then((data) => setFoods(data))
+      .finally(() => setLoading(false));
   }, []);
 
   const suggestionHandler = (suggestion) => {
@@ -56,17 +61,18 @@ export const TrackFood = () => {
     <>
       <section className='main-container'>
         <h1>IRON INTAKE</h1>
+        {loading && <Loading />}
         <form
           onSubmit={(event) => {
             event.preventDefault();
             setSelectedFoods([...selectedFoods, selectedFood]);
             cleanFood();
           }}
-          onBlur={() => {
+          /* onBlur={() => {
             setTimeout(() => {
               setSuggestions([]);
             }, 100);
-          }}
+          }} */
         >
           <styles.InputContainer>
             <input

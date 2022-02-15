@@ -54,7 +54,7 @@ export const ResetButton = styled.button`
 `;
 
 export const DeleteButton = styled.button`
-  background: #3be280;
+  background: #00c9a5;
   margin-left: -5%;
   position: absolute;
   text-align: center;
