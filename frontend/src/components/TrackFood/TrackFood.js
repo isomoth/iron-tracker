@@ -68,11 +68,6 @@ export const TrackFood = () => {
             setSelectedFoods([...selectedFoods, selectedFood]);
             cleanFood();
           }}
-          /* onBlur={() => {
-            setTimeout(() => {
-              setSuggestions([]);
-            }, 100);
-          }} */
         >
           <styles.InputContainer>
             <input
@@ -87,6 +82,7 @@ export const TrackFood = () => {
               Track
             </styles.TrackButton>
           </styles.InputContainer>
+          {loading && <Loading />}
           <styles.SuggestionsContainer>
             {suggestions &&
               suggestions.map((suggestion, _id) => (
