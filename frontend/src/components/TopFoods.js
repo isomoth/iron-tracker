@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from 'utils/constants';
 import styled, { keyframes } from 'styled-components';
-import Loading from '../components/Loading/Loading';
+import LoadingTopFoods from './Loading/LoadingTopFoods';
 
 const ScrollAnimation = keyframes`
   from { top: 0; transform: translateZ(0) rotateX(20deg)}
@@ -58,7 +58,7 @@ export const TopFoods = () => {
 
   return (
     <TopFoodsContainer>
-      {loading && <Loading />}
+      {loading && <LoadingTopFoods />}
       <TitleContainer>
         <h1>IRON-RICH FOODS</h1>
         <h2>HALL OF FAME</h2>

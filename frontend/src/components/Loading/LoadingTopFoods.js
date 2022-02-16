@@ -1,7 +1,7 @@
 import React from 'react';
-import * as styles from './Loading.styled';
+import * as styles from './LoadingTopFoods.styled';
 
-const Loading = () => {
+const LoadingTopFoods = () => {
   return (
     <>
       <styles.LoadingOverlay>
@@ -12,4 +12,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default LoadingTopFoods;

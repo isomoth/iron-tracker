@@ -4,7 +4,7 @@ import { API_URL } from 'utils/constants';
 
 import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import { TotalValues } from '../TotalValues/TotalValues';
-import Loading from 'components/Loading/Loading';
+import Loading from 'components/Loading/LoadingTracker';
 
 export const TrackFood = () => {
   const [foods, setFoods] = useState([]);

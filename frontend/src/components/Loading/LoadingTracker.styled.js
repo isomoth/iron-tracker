@@ -31,10 +31,18 @@ export const LoadingOverlay = styled.div`
   gap: 15%;
   justify-content: center;
   align-items: center;
-  margin-top: 85%;
+  margin-top: 50%;
   margin-left: 20%;
   margin-right: auto;
   z-index: -2;
+  @media only screen and (min-width: 768px) {
+    margin-top: 30%;
+    margin-left: 32%;
+  }
+  @media only screen and (min-width: 1024px) {
+    margin-top: 20%;
+    margin-left: 20%;
+  }
 `;
 
 export const LoadingSpinner = styled.div`
@@ -50,28 +58,3 @@ export const LoadingSpinner = styled.div`
   animation: ${SpinnerAnimation} infinite 0.5s;
   -webkit-animation: ${SpinnerAnimation} infinite 0.5s;
 `;
-
-/* 
-@keyframes spinner {
-  0% {
-    transform: rotate(0);
-    -webkit-transform: rotate(0);
-    -moz-transform: rotate(0);
-    -ms-transform: rotate(0);
-    -o-transform: rotate(0);
-  }
-  50% {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-  }
-  100% {
-    transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-  }
-} */
