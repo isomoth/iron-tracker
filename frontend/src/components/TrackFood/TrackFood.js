@@ -82,7 +82,6 @@ export const TrackFood = () => {
               Track
             </styles.TrackButton>
           </styles.InputContainer>
-          {loading && <Loading />}
           <styles.SuggestionsContainer>
             {suggestions &&
               suggestions.map((suggestion, _id) => (

@@ -38,19 +38,19 @@ export const TotalValues = ({ isChanged }) => {
 
   const onShowTotalValues = () => {
     setShowTotalValues(!showTotalValues);
+    alert(
+      'YOUR FINAL SCORE: Iron: ' +
+        totalIron() +
+        'mg, Vit. C: ' +
+        totalVitC() +
+        'mg'
+    );
   };
 
   return (
     <>
       {selectedFoods && selectedFoods.length !== 0 && (
         <TotalValuesButton onClick={onShowTotalValues}>Total</TotalValuesButton>
-      )}
-      {showTotalValues && (
-        <div>
-          <h3>My final score: </h3>
-          <p>Iron: {totalIron()} mg</p>
-          <p>Vit. C: {totalVitC()} mg</p>
-        </div>
       )}
     </>
   );
