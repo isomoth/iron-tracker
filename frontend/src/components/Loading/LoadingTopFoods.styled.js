@@ -40,7 +40,7 @@ export const LoadingOverlay = styled.div`
     margin-left: 30%;
   }
   @media only screen and (min-width: 1024px) {
-    margin-left: 20%;
+    margin-left: 35%;
   }
   @media only screen and (min-width: 1440px) {
     margin-top: 20%;
