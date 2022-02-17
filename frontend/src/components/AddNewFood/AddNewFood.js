@@ -7,7 +7,6 @@ export const AddNewFood = () => {
   const [foodName, setFoodName] = useState('');
   const [vitamin_c, setVitamin_c] = useState(0);
   const [iron, setIron] = useState(0);
-  const [message, setMessage] = useState('');
   const [showForm, setShowForm] = useState(false);
 
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ export const AddNewFood = () => {
     setFoodName('');
     setVitamin_c('');
     setIron('');
-    setMessage('Food created successfully');
+    alert('Food created successfully');
   };
 
   return (
@@ -54,7 +53,6 @@ export const AddNewFood = () => {
             onChange={(e) => setIron(e.target.value)}
           />
           <styles.SaveButton type='submit'>Save</styles.SaveButton>
-          <div className='message'>{message ? <p>{message}</p> : null}</div>
         </styles.AddFoodForm>
       )}
     </>
