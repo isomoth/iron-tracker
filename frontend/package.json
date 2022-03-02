@@ -1,5 +1,5 @@
 {
-  "name": "project-auth-frontend",
+  "name": "iron-tracker",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -43,7 +43,7 @@
   "main": "index.js",
   "devDependencies": {},
   "keywords": [],
-  "author": "",
+  "author": "Isabel González",
   "license": "ISC",
-  "description": ""
+  "description": "Keeping your iron nutrition on track"
 }

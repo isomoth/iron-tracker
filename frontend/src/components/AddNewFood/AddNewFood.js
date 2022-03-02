@@ -36,9 +36,7 @@ export const AddNewFood = () => {
             type='text'
             value={foodName}
             placeholder='food name'
-            onChange={(e) => {
-              setFoodName(e.target.value);
-            }}
+            onChange={(e) => setFoodName(e.target.value)}
           />
           <input
             type='text'
