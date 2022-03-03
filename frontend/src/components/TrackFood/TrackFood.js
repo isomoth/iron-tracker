@@ -23,7 +23,7 @@ export const TrackFood = () => {
     setLoading(true);
     fetch(API_URL('foods'))
       .then((res) => res.json())
-      .then((data) => setFoods(data.response))
+      .then((data) => setFoods(data)) // This is what needs fixing
       .finally(() => setLoading(false));
   }, []);
 
