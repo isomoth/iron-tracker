@@ -53,7 +53,7 @@ app.get('/foods', async (req, res) => {
     const foodsByIron = await Food.find({ iron: { $gt: iron } });
     foods = foodsByIron;
   }
-  res.status(200).json({ response: foods, success: true });
+  res.json(foods);
 });
 
 // Get foods richest in iron
@@ -62,7 +62,7 @@ app.get('/foods/iron', (req, res) => {
     if (error) {
       res.status(404).json({ error: 'Foods not found' });
     } else {
-      res.status(200).json({ response: foods, success: true });
+      res.send(foods);
     }
   });
 });
@@ -72,7 +72,7 @@ app.get('/foods/id/:_id', async (req, res) => {
   try {
     const foodById = await Food.findById(req.params._id);
     if (foodById) {
-      res.status(200).json({ response: foodById, success: true });
+      res.json(foodById);
     } else {
       res.status(404).json({ error: 'No food by that id' });
     }
@@ -91,7 +91,7 @@ app.post('/foods', async (req, res) => {
       vitamin_c: vitamin_c,
       iron: iron
     }).save();
-    res.status(201).json({ response: newFood, success: true });
+    res.status(201).json({ newFood, success: true });
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
@@ -101,7 +101,7 @@ app.post('/foods', async (req, res) => {
 app.delete('/foods/id/:_id', async (req, res) => {
   const { _id } = req.params;
   try {
-    const deletedFood = await Food.findByIdAndDelete({ _id: _id });
+    const deletedFood = await Food.findOneAndDelete({ _id: _id });
     if (deletedFood) {
       res.status(200).json({ response: deletedFood, success: true });
     } else {
