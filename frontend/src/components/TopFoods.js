@@ -52,7 +52,7 @@ export const TopFoods = () => {
     setLoading(true);
     fetch(API_URL('foods?iron=60'))
       .then((res) => res.json())
-      .then((data) => setFoods(data)) // This is what needs fixing
+      .then((data) => setFoods(data))
       .finally(() => setLoading(false));
   }, []);
 

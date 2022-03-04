@@ -4,8 +4,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { useState, useRef } from 'react';
-import useOnClickOutside from 'hooks/useOnClickOutside';
 
+import useOnClickOutside from 'hooks/useOnClickOutside';
 import { foods } from './reducers/foods';
 import { TopFoods } from './components/TopFoods';
 import { TrackFood } from './components/TrackFood/TrackFood';
@@ -37,13 +37,10 @@ export const App = () => {
             <Menu open={open} setOpen={setOpen} />
           </div>
           <Routes>
-            <Route path='/' element={<Home />}></Route>
-            <Route path='/foods' element={<TopFoods />}></Route>
-            <Route
-              path='/tracker'
-              element={<TrackFood isChanged={[]} />}
-            ></Route>
-            <Route path='/disclaimer' element={<Disclaimer />}></Route>
+            <Route path='/' element={<Home />} />
+            <Route path='/foods' element={<TopFoods />} />
+            <Route path='/tracker' element={<TrackFood isChanged={[]} />} />
+            <Route path='/disclaimer' element={<Disclaimer />} />
           </Routes>
         </Router>
       </ThemeProvider>

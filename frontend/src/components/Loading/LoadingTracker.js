@@ -3,12 +3,10 @@ import * as styles from './LoadingTracker.styled';
 
 const LoadingTracker = () => {
   return (
-    <>
-      <styles.LoadingOverlay>
-        <h3>Loading...</h3>
-        <styles.LoadingSpinner />
-      </styles.LoadingOverlay>
-    </>
+    <styles.LoadingOverlay>
+      <h3>Loading...</h3>
+      <styles.LoadingSpinner />
+    </styles.LoadingOverlay>
   );
 };
 
