@@ -5,6 +5,7 @@ import { API_URL } from 'utils/constants';
 import { AddNewFood } from 'components/AddNewFood/AddNewFood';
 import { TotalValues } from '../TotalValues/TotalValues';
 import Loading from 'components/Loading/LoadingTracker';
+import { MainContainer } from 'components/MainContainer.styled';
 
 export const TrackFood = () => {
   const [foods, setFoods] = useState([]);
@@ -58,7 +59,7 @@ export const TrackFood = () => {
   };
 
   return (
-    <section className='main-container'>
+    <MainContainer>
       <h1>IRON INTAKE</h1>
       {loading && <Loading />}
       <form
@@ -127,6 +128,6 @@ export const TrackFood = () => {
       {/* TrackFood is a parent component to TotalValues (child). selectedFoods acts as a parent state, passed to TotalValues as a prop. */}
       {/* In the child component, the useEffect hook will listen to this prop every time it changes from the parent:  */}
       <TotalValues isChanged={selectedFoods} />
-    </section>
+    </MainContainer>
   );
 };
