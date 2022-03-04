@@ -58,6 +58,12 @@ export const TrackFood = () => {
     setSelectedFoods(removeFood);
   };
 
+  const resetFoods = () => {
+    if (selectedFoods.length !== 0) {
+      setSelectedFoods([]);
+    }
+  };
+
   return (
     <MainContainer>
       <h1>IRON INTAKE</h1>
@@ -114,11 +120,7 @@ export const TrackFood = () => {
         </styles.FoodDataContainer>
       ))}
       <styles.ResetButton
-        onClick={() => {
-          if (selectedFoods.length !== 0) {
-            setSelectedFoods([]);
-          }
-        }}
+        onClick={resetFoods}
         disabled={selectedFoods.length === 0}
       >
         Reset
