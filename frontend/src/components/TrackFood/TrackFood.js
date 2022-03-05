@@ -24,7 +24,7 @@ export const TrackFood = () => {
     setLoading(true);
     fetch(API_URL('foods'))
       .then((res) => res.json())
-      .then((data) => setFoods(data))
+      .then((data) => setFoods(data.response))
       .finally(() => setLoading(false));
   }, []);
 

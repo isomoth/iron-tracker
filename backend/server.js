@@ -62,7 +62,7 @@ app.get('/foods/iron', (req, res) => {
     if (error) {
       res.status(404).json({ error: 'Foods not found' });
     } else {
-      res.status(200).json({ response: foods, success: true });
+      res.send({ response: foods, success: true });
     }
   });
 });
@@ -91,7 +91,7 @@ app.post('/foods', async (req, res) => {
       vitamin_c: vitamin_c,
       iron: iron
     }).save();
-    res.status(201).json({ response: newFood, success: true });
+    res.status(200).json({ response: newFood, success: true });
   } catch (error) {
     res.status(400).json({ response: error, success: false });
   }
